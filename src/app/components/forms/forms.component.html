@@ -1,1 +1,43 @@
-<p>forms works!</p>
+<div class="container text-center py-5">
+  <div class="row">
+    <div class="col-md-12 p-3">
+<h1>Compra, vendi, esplora tra migliaia di prodotti sul nostro store.</h1>
+<h2>
+  ⬇️  Sei già un utente o un venditore? Accedi ⬇️
+</h2>
+    </div>
+    <div class="col-md-12">
+      <div class="rounded-circle w-75 m-auto border border-danger shadow p-5" *ngIf="formSection=='login'">
+        <h2>Login</h2>
+        <form [formGroup]="login">
+        <label for="" class="fs-5 p-4">Email 📧</label>
+        <input type="text" formControlName="email" class="form-control w-75 m-auto">
+        <label for="" class="fs-5 p-4">Password 🔑</label>
+      <input type="password" formControlName="password" class="form-control w-75 m-auto">
+      </form>
+      <p class="py-3 fs-5">Oppure <button class="btn text-danger fw-bold" (click)="formSection='signup'">Iscriviti</button></p>
+      </div>
+      <div class="rounded-circle w-75 m-auto border border-danger shadow-lg p-5" *ngIf="formSection=='signup'">
+        <h2>Signup</h2>
+        <form [formGroup]="signup">
+          <label for="" class="fs-5 p-4">Nome Completo </label>
+          <input type="text" formControlName="nomeCompleto" class="form-control w-75 m-auto">
+          <label for="" class="fs-5 p-4">Email 📧</label>
+          <input type="text" formControlName="email" class="form-control w-75 m-auto">
+        <label for="" class="fs-5 p-4">Nazione </label>
+        <select type="text" formControlName="nazione" class="form-select w-75 m-auto">
+        </select>
+        <label for="" class="fs-5 p-4">Città</label>
+      <input type="text" formControlName="citta" class="form-control w-75 m-auto">
+          <label for="" class="fs-5 p-4">Età </label>
+        <input type="number" formControlName="eta" class="form-control w-75 m-auto">
+        <label for="" class="fs-5 p-4">Password 🔑</label>
+      <input type="password" formControlName="password" class="form-control w-75 m-auto">
+      <label for="" class="fs-5 p-4">Ripeti Password 🔑</label>
+      <input type="password" formControlName="ripetiPassword" class="form-control w-75 m-auto">
+      </form>
+      <p class="py-3 fs-5">Oppure <button class="btn text-danger fw-bold" (click)="formSection='login'">Accedi</button></p>
+      </div>
+    </div>
+  </div>
+</div>
