@@ -18,6 +18,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
+import { CommerceStatsComponent } from './components/commerce-stats/commerce-stats.component';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import {MatButtonModule} from '@angular/material/button';
     NavbarComponent,
     FooterComponent,
     ViewProdottoComponent,
-    ErrorComponent
+    ErrorComponent,
+    CommerceStatsComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
