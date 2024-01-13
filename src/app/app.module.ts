@@ -15,6 +15,9 @@ import { ViewProdottoComponent } from './shared/view-prodotto/view-prodotto.comp
 import { ErrorComponent } from './shared/error/error.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,9 @@ import { ToastrModule } from 'ngx-toastr';
     AppRoutingModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatMenuModule
 
   ],
   providers: [],

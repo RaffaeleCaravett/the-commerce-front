@@ -1,1 +1,29 @@
-<p>navbar works!</p>
+<nav class="w-100 p-3 bg-success">
+<div class="row">
+  <div class="col-md-2">
+    <button class="btn fs-5" [routerLink]="'/home'">The commerce</button>
+  </div>
+  <div class="col-md-2">
+    <form [formGroup]="search" class="d-flex">
+    <input type="text" class="form-control" placeholder="cerca qualcosa" formControlName="search">
+  <button class="btn fs-5" (click)="cerca()">🔎</button>
+  </form>
+  </div>
+  <div class="col-md-2">
+    <button mat-button [matMenuTriggerFor]="menu" class="fs-5">Nel sito<span class="fs-5">⬇️</span></button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Abbigliamento</button>
+      <button mat-menu-item>Casa</button>
+      <button mat-menu-item>Elettronica</button>
+    </mat-menu>  </div>
+  <div class="col-md-2">
+    <button class="btn fs-5" [routerLink]="'/dashboard'">Area personale</button>
+  </div>
+  <div class="col-md-2">
+    <button class="btn fs-5" [routerLink]="'/stats'">Bestseller</button>
+  </div>
+  <div class="col-md-2">
+    <button class="btn fs-5" [routerLink]="'/forms'">Login/Signup</button>
+  </div>
+</div>
+</nav>
