@@ -3,9 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsComponent } from './components/forms/forms.component';
 import { HomeComponent } from './components/home/home.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CercaComponent } from './components/cerca/cerca.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
@@ -24,7 +22,6 @@ import { NgxEchartsModule } from 'ngx-echarts';
   declarations: [
     AppComponent,
     HomeComponent,
-    DashboardComponent,
     CercaComponent,
     NavbarComponent,
     FooterComponent,

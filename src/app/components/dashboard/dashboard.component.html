@@ -1,1 +1,47 @@
-<p>dashboard works!</p>
+<div class="container text-center">
+<div class="row">
+<div class="col-md-12">
+  <h1 class="p-3">La tua area personale</h1>
+</div>
+<div class="col-md-4 p-2">
+  <div class="p-2 border rounded shadow fs-4">
+    <h2 class="p-2">Info</h2>
+<p>Nome</p>
+<p>Email</p>
+<p>Nazione</p>
+<p>Città</p>
+<p>Età</p>
+  </div>
+</div>
+<div class="col-md-8 p-2">
+
+</div>
+<div class="col-md-12">
+  <h2 class="p-2">
+    La tua scheda anagrafica
+  </h2>
+  <form [formGroup]="anagrafica">
+    <div class="row">
+      <div class="col-md-12">
+        <label for="" class="form-label"></label>
+    <input class="form-control" formControlName="nome">
+  <label for="" class="form-label"></label>
+  <input class="form-control" formControlName="cognome">
+  <label for="" class="form-label"></label>
+  <input class="form-control" formControlName="email">
+      </div>
+      <div class="col-md-12">
+        <label for="" class="form-label"></label>
+        <input type="checkbox" class="form-control-check" formControlName="tipoUtente">
+      </div>
+      <div class="col-md-12">
+        <label for="" class="form-label" *ngIf="anagrafica.controls['tipoUtente'].value=='user'"></label>
+        <input type="text" class="form-control" *ngIf="anagrafica.controls['tipoUtente'].value=='user'">
+        <label for="" class="form-label" *ngIf="anagrafica.controls['tipoUtente'].value=='venditore'"></label>
+        <input type="text" class="form-control" *ngIf="anagrafica.controls['tipoUtente'].value=='venditore'">
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+</div>
