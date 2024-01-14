@@ -18,11 +18,11 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { CommerceStatsComponent } from './components/commerce-stats/commerce-stats.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormsComponent,
     HomeComponent,
     DashboardComponent,
     CercaComponent,
@@ -30,8 +30,8 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
     FooterComponent,
     ViewProdottoComponent,
     ErrorComponent,
-    CommerceStatsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    CommerceStatsComponent
   ],
   imports: [
     BrowserModule,
@@ -40,8 +40,10 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
     ToastrModule.forRoot(),
     ReactiveFormsModule,
     MatButtonModule,
-    MatMenuModule
-
+    MatMenuModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

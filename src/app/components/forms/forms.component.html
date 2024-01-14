@@ -7,7 +7,7 @@
 </h2>
     </div>
     <div class="col-md-12">
-      <div class="rounded-circle w-75 m-auto border border-danger shadow p-5" *ngIf="formSection=='login'">
+      <div class="rounded-circle w-75 m-auto border border-danger shadow p-5 bg-light" *ngIf="formSection=='login'">
         <h2>Login</h2>
         <form [formGroup]="login">
         <label for="" class="fs-5 p-4">Email 📧</label>
@@ -15,9 +15,9 @@
         <label for="" class="fs-5 p-4">Password 🔑</label>
       <input type="password" formControlName="password" class="form-control w-75 m-auto">
       </form>
-      <p class="py-3 fs-5">Oppure <button class="btn text-danger fw-bold" (click)="formSection='signup'">Iscriviti</button></p>
+      <p class="py-3 fs-5">Oppure <button class="btn text-danger fw-bold " (click)="formSection='signup'">Iscriviti</button></p>
       </div>
-      <div class="rounded-circle w-75 m-auto border border-danger shadow-lg p-5" *ngIf="formSection=='signup'">
+      <div class="rounded-circle w-75 m-auto border border-danger shadow-lg p-5 bg-light " *ngIf="formSection=='signup'">
         <h2>Signup</h2>
         <form [formGroup]="signup">
           <label for="" class="fs-5 p-4">Nome Completo </label>
