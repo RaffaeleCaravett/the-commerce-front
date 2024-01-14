@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
 import { FormsComponent } from './components/forms/forms.component';
 import { CercaComponent } from './components/cerca/cerca.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -10,8 +9,9 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
 const routes: Routes = [
 {
 path:'',
-component:FormsComponent
-},
+loadChildren: () =>
+import('../app/components/forms/forms.module')
+ .then(m => m.FormsModule)},
 {
 path:'forms',
 component:FormsComponent
