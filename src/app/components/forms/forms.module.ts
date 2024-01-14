@@ -17,7 +17,7 @@ FormsComponent
     MatMenuModule
 
   ],
-  providers: [FormsComponent],
+  providers: [],
   bootstrap: []
 
 })

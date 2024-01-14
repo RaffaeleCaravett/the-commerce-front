@@ -16,32 +16,121 @@
 <div class="col-md-8 p-2">
 
 </div>
-<div class="col-md-12">
+<div class="col-md-12 p-2">
   <h2 class="p-2">
     La tua scheda anagrafica
   </h2>
   <form [formGroup]="anagrafica">
     <div class="row">
-      <div class="col-md-12">
-        <label for="" class="form-label"></label>
+  <div class="col-md-12 p-2">
+    <div class="row p-2 border rounded bg-light">
+   <div class="col-md-12 p-2">
+        <h2>Informazioni personali</h2>
+      </div>
+      <div class="col-md-4 p-2">
+        <label for="" class="form-label">Nome</label>
     <input class="form-control" formControlName="nome">
-  <label for="" class="form-label"></label>
+  </div>
+  <div class="col-md-4 p-2">
+<label for="" class="form-label">Cognome</label>
   <input class="form-control" formControlName="cognome">
-  <label for="" class="form-label"></label>
+  </div>
+  <div class="col-md-4 p-2">
+<label for="" class="form-label">Email</label>
   <input class="form-control" formControlName="email">
+  </div>
+    </div>
+  </div>
+      <div class="col-md-12 p-2">
+        <div class="row p-2 border rounded bg-light">
+          <div class="col-md-12 p-2">
+    <h2>Tipo Utente</h2>
+  </div>
+  <div class="col-md-4 p-2">
+        <label for="" class="form-label px-3">Utente</label>
+        <input type="radio" class="form-check-control" formControlName="tipoUtente" value="UTENTE">
+  </div>
+  <div class="col-md-4 p-2">
+        <label for="" class="form-label px-3">Venditore</label>
+        <input type="radio" class="form-check-control" formControlName="tipoUtente" value="VENDITORE">
       </div>
-      <div class="col-md-12">
-        <label for="" class="form-label"></label>
-        <input type="checkbox" class="form-control-check" formControlName="tipoUtente">
+        </div>
       </div>
-      <div class="col-md-12">
-        <label for="" class="form-label" *ngIf="anagrafica.controls['tipoUtente'].value=='user'"></label>
-        <input type="text" class="form-control" *ngIf="anagrafica.controls['tipoUtente'].value=='user'">
-        <label for="" class="form-label" *ngIf="anagrafica.controls['tipoUtente'].value=='venditore'"></label>
-        <input type="text" class="form-control" *ngIf="anagrafica.controls['tipoUtente'].value=='venditore'">
+       <div class="col-md-12 p-2" *ngIf="anagrafica.controls['tipoUtente'].value">
+          <div class="row p-2 border rounded bg-light">
+           <div class="col-md-12 p-2" *ngIf="anagrafica.controls['tipoUtente'].value&&anagrafica.controls['tipoUtente'].value!=''">
+        <h2 *ngIf="anagrafica.controls['tipoUtente'].value=='UTENTE'">Codice fiscale</h2>
+        <h2 *ngIf="anagrafica.controls['tipoUtente'].value=='VENDITORE'">Codice fiscale</h2>
       </div>
+      <div class="col-md-6 p-2">
+        <label for="" class="form-label" *ngIf="anagrafica.controls['tipoUtente'].value=='UTENTE'">Codice fiscale</label>
+        <input type="text" class="form-control" *ngIf="anagrafica.controls['tipoUtente'].value=='UTENTE'"
+        formControlName="codiceFiscale">
+      </div>
+      <div class="col-md-6 p-2">
+        <label for="" class="form-label" *ngIf="anagrafica.controls['tipoUtente'].value=='VENDITORE'">Partita iva</label>
+        <input type="text" class="form-control" *ngIf="anagrafica.controls['tipoUtente'].value=='VENDITORE'"
+        formControlName="partitaIva">
+      </div>
+          </div>
+        </div>
+    <div class="col-md-12 p-2">
+      <div class="row p-2 border rounded bg-light">
+          <div class="col-md-12 p-2">
+        <h2>Indirizzo</h2>
+      </div>
+<div class="col-md-3 p-2">
+<label for="">Via</label>
+<input type="text" formControlName="via" class="form-control">
+</div>
+<div class="col-md-5 p-2">
+  <label for="">Indirizzo</label>
+  <input type="text" formControlName="indirizzo" class="form-control">
+  </div>
+  <div class="col-md-4 p-2">
+    <label for="">Cap</label>
+    <input type="number" formControlName="cap" class="form-control">
+    </div>
+      </div>
+    </div>
+    <div class="col-md-12 p-2" *ngIf="anagrafica.controls['tipoUtente'].value=='VENDITORE'">
+      <div class="row p-2 border rounded bg-light">
+        <div class="col-md-12 p-2" >
+      <h2>Capitale sociale</h2>
+    </div>
+    <div class="col-md-6 p-2" *ngIf="anagrafica.controls['tipoUtente'].value=='VENDITORE'">
+      <label for="">Capitale sociale</label>
+      <input type="text" formControlName="capitaleSociale" class="form-control">
+      </div>
+      </div>
+    </div>
     </div>
   </form>
 </div>
+<div class="col-md-12 p-2" *ngIf="user && user.role=='VENDITORE'">
+<div class="row">
+  <div class="col-md-12 p-2">
+    <h2>I tuoi prodotti
+</h2>
+</div>
+<div class="col-md-12 p-2" >
+  <h2>  I tuoi incassi
+</h2>
+  </div>
+</div>
+<div class="col-md-12" *ngIf="user && user.role=='UTENTE'">
+  <div class="row">
+    <div class="col-md-12 p-2">
+      <h2>I tuoi acquisti
+  </h2>
+    </div>
+    <div class="col-md-12 p-2">
+      <h2>Prodotti salvati
+  </h2>
+    </div>
+  </div>
+  </div>
+</div>
+
 </div>
 </div>

@@ -21,7 +21,9 @@ component:CercaComponent
 },
 {
 path:'dashboard',
-component:DashboardComponent
+loadChildren: () =>
+import('../app/components/dashboard/dashboard.module')
+ .then(m => m.DashboardModule)
 },
 {
   path: 'stats',

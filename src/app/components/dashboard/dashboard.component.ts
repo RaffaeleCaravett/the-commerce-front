@@ -8,7 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class DashboardComponent implements OnInit{
 anagrafica!:FormGroup
-
+user:any
 ngOnInit(): void {
 this.anagrafica=new FormGroup({
 nome:new FormControl('',Validators.required),
