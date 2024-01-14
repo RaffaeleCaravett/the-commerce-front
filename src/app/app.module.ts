@@ -28,7 +28,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
     ViewProdottoComponent,
     ErrorComponent,
     NotFoundComponent,
-    CommerceStatsComponent
+    CommerceStatsComponent,
   ],
   imports: [
     BrowserModule,

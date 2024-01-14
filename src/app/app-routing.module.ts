@@ -26,6 +26,12 @@ import('../app/components/dashboard/dashboard.module')
  .then(m => m.DashboardModule)
 },
 {
+  path:'dinamic',
+  loadChildren: () =>
+  import('../app/components/dinamic-category/dinamic-category.module')
+   .then(m => m.DinamicCategoryModule)
+  },
+{
   path: 'stats',
   component:CommerceStatsComponent},
 {

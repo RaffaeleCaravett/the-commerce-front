@@ -12,9 +12,9 @@
   <div class="col-md-2">
     <button mat-button [matMenuTriggerFor]="menu" class="fs-5">Nel sito<span class="fs-5">⬇️</span></button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>Abbigliamento</button>
-      <button mat-menu-item>Casa</button>
-      <button mat-menu-item>Elettronica</button>
+      <button mat-menu-item [routerLink]="'/dinamic'">Abbigliamento</button>
+      <button mat-menu-item [routerLink]="'/dinamic'">Casa</button>
+      <button mat-menu-item [routerLink]="'/dinamic'">Elettronica</button>
     </mat-menu>  </div>
   <div class="col-md-2">
     <button class="btn fs-5" [routerLink]="'/dashboard'">Area personale</button>
