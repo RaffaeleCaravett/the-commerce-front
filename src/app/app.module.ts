@@ -17,6 +17,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { CommerceStatsComponent } from './components/commerce-stats/commerce-stats.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { NgxEchartsModule } from 'ngx-echarts';
     MatMenuModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
-    })
+    }),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

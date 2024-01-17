@@ -5,6 +5,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { FormsComponent } from './components/forms/forms.component';
 import { CommerceStatsComponent } from './components/commerce-stats/commerce-stats.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
 {
@@ -31,6 +32,9 @@ import('../app/components/dashboard/dashboard.module')
   import('../app/components/dinamic-category/dinamic-category.module')
    .then(m => m.DinamicCategoryModule)
   },
+  {
+    path: 'home',
+    component:HomeComponent},
 {
   path: 'stats',
   component:CommerceStatsComponent},
