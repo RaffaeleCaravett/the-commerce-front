@@ -1,1 +1,27 @@
-<p>home works!</p>
+<div class="container">
+  <div class="row text-center">
+    <h1>Benvenuto su <span class="text-danger"> The commerce </span></h1>
+    <p>Qui puoi cercare tra migliaia di articoli</p>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-1">
+          <button class="btn" (click)="updateCarousel('back')">
+             <span class="material-symbols-outlined">
+          arrow_back_ios
+          </span>
+          </button>
+         </div>
+        <div class="col-md-10">
+<img src="{{images[index]}}" alt="" class="w-75">
+        </div>
+        <div class="col-md-1">
+          <button class="btn" (click)="updateCarousel('forward')">
+ <span class="material-symbols-outlined">
+          arrow_forward_ios
+          </span>
+          </button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
