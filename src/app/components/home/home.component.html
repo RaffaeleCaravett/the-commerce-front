@@ -24,10 +24,15 @@
       </div>
     </div>
     <div class="col-md-12 py-2">
+      <h1 class="py-2">Our products</h1>
       <div class="row">
         <div class="col-md-4 p-4" *ngFor="let c of categories">
       <div class="border rounded shadow">
-
+<h2>{{c.name}}</h2>
+<img src="{{c.image}}" class="w-100 rounded-bottom" alt="" style="height: 200px;">
+<p><button class="btn" [routerLink]="'/dinamic'">
+  Take a look ➡️
+</button></p>
       </div></div>
       </div>
     </div>
