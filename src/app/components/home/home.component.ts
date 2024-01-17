@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AppService } from 'src/app/services/app.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,11 +10,18 @@ export class HomeComponent implements OnInit,OnDestroy{
 images:string[]=[]
 index:number=0
 interval:any
-constructor(){}
+categories:any[]=[]
+constructor(private app:AppService){}
+
   ngOnDestroy(): void {
 clearInterval(this.interval)  }
 
 ngOnInit(): void {
+  this.app.getCategory().subscribe((data:any)=>{
+   if(data){
+    this.categories=data
+   }
+  })
   let image= '../../../assets/homeImages/banner.jpg'
   let image1= '../../../assets/homeImages/banner1.jpg'
   let image2= '../../../assets/homeImages/banner2.jpg'
@@ -41,6 +49,7 @@ if(direction=='back'){
     this.index+=1
   }
 }
+
 }
 
 
