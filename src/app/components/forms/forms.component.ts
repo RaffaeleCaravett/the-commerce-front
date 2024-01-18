@@ -51,6 +51,8 @@ if(this.login.valid){
     ).subscribe((data:any)=>{console.log(data)},err=>{
       this.error=err.error.message||"Qualcosa è andato storto nel login"
     })
+}else{
+  this.error="Riguarda il form, qualcosa non va."
 }
 }
 
@@ -68,6 +70,8 @@ if(this.signup.valid&&this.signup.controls['password'].value==this.signup.contro
     ).subscribe((data:any)=>{console.log(data)},err=>{
       this.error=err.error.message||"Qualcosa è andato storto nel signup"
     })
+}else{
+  this.error="Riguarda il form, stai sbagliando o dimenticando di inserire qualcosa"
 }
 }
 updateCities(id:number){

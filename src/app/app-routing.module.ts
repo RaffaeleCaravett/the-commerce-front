@@ -6,6 +6,7 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { FormsComponent } from './components/forms/forms.component';
 import { CommerceStatsComponent } from './components/commerce-stats/commerce-stats.component';
 import { HomeComponent } from './components/home/home.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
 {
@@ -24,7 +25,7 @@ component:CercaComponent
 path:'dashboard',
 loadChildren: () =>
 import('../app/components/dashboard/dashboard.module')
- .then(m => m.DashboardModule)
+ .then(m => m.DashboardModule ), canActivate:[AuthGuard]
 },
 {
   path:'dinamic/:id',
@@ -37,7 +38,7 @@ import('../app/components/dashboard/dashboard.module')
     component:HomeComponent},
 {
   path: 'stats',
-  component:CommerceStatsComponent},
+  component:CommerceStatsComponent , canActivate:[AuthGuard]},
 {
   path:'**',
   component:NotFoundComponent
