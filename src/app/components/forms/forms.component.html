@@ -31,10 +31,15 @@
           <label for="" class="fs-5 p-4">Email 📧</label>
           <input type="text" formControlName="email" class="form-control w-75 m-auto">
         <label for="" class="fs-5 p-4">Nazione </label>
-        <select type="text" formControlName="nazione" class="form-select w-75 m-auto">
+        <select formControlName="nazione" class="form-select w-75 m-auto" (change)="updateCities(signup.controls['nazione'].value)">
+          <option value=""></option>
+          <option value="{{n.id}}" *ngFor="let n of nations">{{n.nome}}</option>
         </select>
         <label for="" class="fs-5 p-4">Città</label>
-      <input type="text" formControlName="citta" class="form-control w-75 m-auto">
+      <select formControlName="citta" class="form-select w-75 m-auto">
+        <option value=""></option>
+        <option value="{{c.id}}" *ngFor="let c of cities">{{c.nome}}</option>
+      </select>
           <label for="" class="fs-5 p-4">Età (min. 18)</label>
         <input type="number" formControlName="eta" class="form-control w-75 m-auto">
         <label for="" class="fs-5 p-4">Password 🔑 (min. 6 caratteri)</label>

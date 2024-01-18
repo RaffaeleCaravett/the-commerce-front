@@ -13,9 +13,17 @@ login!:FormGroup
 formSection:string=''
 signup!:FormGroup
 error:string=''
+nations:any
+cities:any
 constructor(private authService:AuthService){}
 
 ngOnInit(): void {
+
+  this.authService.getNations().subscribe((data:any)=>{
+    if(data){
+          this.nations=data
+    }
+  })
 this.login=new FormGroup({
 email:new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
 password:new FormControl('',Validators.required)
@@ -61,5 +69,12 @@ if(this.signup.valid&&this.signup.controls['password'].value==this.signup.contro
       this.error=err.error.message||"Qualcosa è andato storto nel signup"
     })
 }
+}
+updateCities(id:number){
+  this.authService.getCitiesByNationId(id).subscribe((data:any)=>{
+    if(data){
+      this.cities=data
+    }
+  })
 }
 }
