@@ -10,7 +10,7 @@ export class AuthService {
 
   private auth:string ='/auth'
   private login:string ='/login'
-  private signup:string ='/signup'
+  private signup:string ='/register'
   public token:string=''
   public refreshToken:string=''
   private nation:string='/nation'

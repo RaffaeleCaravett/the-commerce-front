@@ -46,12 +46,12 @@ log(body?:any){
 if(this.login.valid){
   this.authService.logIn(
     {
-      email:body.email||this.login.controls['email'].value,
-      password:body.password||this.login.controls['password'].value
+      email:body?body.email:this.login.controls['email'].value,
+      password:body?body.password:this.login.controls['password'].value
     }
     ).subscribe((data:any)=>{
       if(data){
-this.authService.setToken(data.tokens.authToken)
+this.authService.setToken(data.tokens.accessToken)
 this.authService.setRefreshToken(data.tokens.refreshToken)
 this.authService.authenticateUser(true)
 localStorage.setItem('authToken',this.authService.token)
@@ -70,7 +70,7 @@ sign(){
 if(this.signup.valid&&this.signup.controls['password'].value==this.signup.controls['ripetiPassword'].value){
   this.authService.signUp(
     {
-      età:this.signup.controls['età'].value,
+      età:this.signup.controls['eta'].value,
       email:this.signup.controls['email'].value,
       password:this.signup.controls['password'].value,
       nomeCompleto:this.signup.controls['nomeCompleto'].value,

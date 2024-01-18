@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private a :AuthService,private toastr: ToastrService) {}
+  constructor(private toastr: ToastrService) {}
 
 
   isAuthenticated:boolean = false;
