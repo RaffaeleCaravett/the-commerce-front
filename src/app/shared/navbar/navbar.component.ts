@@ -14,6 +14,7 @@ search!:FormGroup
 categories:any
 constructor(private router:Router,private appService:AppService){}
 ngOnInit(): void {
+
 this.search=new FormGroup({
   search:new FormControl('',Validators.required)
 })

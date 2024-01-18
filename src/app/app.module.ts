@@ -9,15 +9,17 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ViewProdottoComponent } from './shared/view-prodotto/view-prodotto.component';
 import { ErrorComponent } from './shared/error/error.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { CommerceStatsComponent } from './components/commerce-stats/commerce-stats.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './core/guard/auth.guard';
+import { TokenInterceptor } from './core/interceptor/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,11 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
     ReactiveFormsModule,
     MatButtonModule,
     MatMenuModule,
@@ -44,7 +50,14 @@ import { HttpClientModule } from '@angular/common/http';
     }),
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthGuard,
+    provideAnimations(),
+    provideToastr(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

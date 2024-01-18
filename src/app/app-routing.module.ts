@@ -6,7 +6,7 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { FormsComponent } from './components/forms/forms.component';
 import { CommerceStatsComponent } from './components/commerce-stats/commerce-stats.component';
 import { HomeComponent } from './components/home/home.component';
-import { AuthGuard } from './guard/auth.guard';
+import { AuthGuard } from './core/guard/auth.guard';
 
 const routes: Routes = [
 {
