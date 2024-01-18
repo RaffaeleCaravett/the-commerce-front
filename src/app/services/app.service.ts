@@ -21,4 +21,7 @@ getVisit(){
 getCategory(){
   return this.http.get(environment.API_URL+this.category)
 }
+getCategoryById(id:number){
+  return this.http.get(environment.API_URL+this.category+`/${id}`)
+}
 }

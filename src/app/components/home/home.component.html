@@ -30,7 +30,7 @@
       <div class="border rounded shadow">
 <h2>{{c.name}}</h2>
 <img src="{{c.image}}" class="w-100 rounded-bottom" alt="" style="height: 200px;">
-<p><button class="btn" [routerLink]="'/dinamic'">
+<p><button class="btn" [routerLink]="['/dinamic',c.id]">
   Take a look ➡️
 </button></p>
       </div></div>
