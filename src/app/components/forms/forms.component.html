@@ -14,8 +14,14 @@
         <input type="text" formControlName="email" class="form-control w-75 m-auto">
         <label for="" class="fs-5 p-4">Password 🔑</label>
       <input type="password" formControlName="password" class="form-control w-75 m-auto">
+      <div class="row text-center">
+        <div class="col-md-12 py-2">
+          <p class="py-2 text-danger" *ngIf="error!=''">{{error}}</p>
+          <button class="btn" (click)="log()">Login</button>
+        </div>
+      </div>
       </form>
-      <p class="py-3 fs-5">Oppure <button class="btn text-danger fw-bold " (click)="formSection='signup'">Iscriviti</button></p>
+      <p class="py-3 fs-5">Oppure <button class="btn text-danger fw-bold " (click)="error='';formSection='signup'">Iscriviti</button></p>
       </div>
       <div class="rounded-circle w-75 m-auto border border-danger shadow-lg p-5 bg-light " *ngIf="formSection=='signup'">
         <h2>Signup</h2>
@@ -29,14 +35,20 @@
         </select>
         <label for="" class="fs-5 p-4">Città</label>
       <input type="text" formControlName="citta" class="form-control w-75 m-auto">
-          <label for="" class="fs-5 p-4">Età </label>
+          <label for="" class="fs-5 p-4">Età (min. 18)</label>
         <input type="number" formControlName="eta" class="form-control w-75 m-auto">
-        <label for="" class="fs-5 p-4">Password 🔑</label>
+        <label for="" class="fs-5 p-4">Password 🔑 (min. 6 caratteri)</label>
       <input type="password" formControlName="password" class="form-control w-75 m-auto">
-      <label for="" class="fs-5 p-4">Ripeti Password 🔑</label>
+      <label for="" class="fs-5 p-4">Ripeti Password 🔑 (min. 6 caratteri)</label>
       <input type="password" formControlName="ripetiPassword" class="form-control w-75 m-auto">
+      <div class="row text-center">
+        <div class="col-md-12 py-2">
+          <p class="py-2 text-danger" *ngIf="error!=''">{{error}}</p>
+          <button class="btn" (click)="sign()">Signup</button>
+        </div>
+      </div>
       </form>
-      <p class="py-3 fs-5">Oppure <button class="btn text-danger fw-bold" (click)="formSection='login'">Accedi</button></p>
+      <p class="py-3 fs-5">Oppure <button class="btn text-danger fw-bold" (click)="error='';formSection='login'">Accedi</button></p>
       </div>
     </div>
   </div>

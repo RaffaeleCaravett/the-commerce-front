@@ -1,4 +1,4 @@
-<div class="container text-center">
+<div class="container text-center" style="min-height: 85vh;">
   <div class="row">
     <div class="col-md-12 py-3">
       <h1>{{category.name}}</h1>
@@ -6,6 +6,17 @@
     </div>
     <div class="col-md-12 py-3">
       <h2>Prodotti</h2>
+      <div class="row">
+        <div class="col-md-3 p-2" *ngFor="let p of category.product">
+      <h2>{{p.nome}}</h2>
+      <p>Tipo prodotto : {{p.tipoProdotto}}</p>
+      <img src="{{p.image}}" class="w-100" alt="">
+  <p>Prezzo : {{p.prezzo}} | Disponibilità : {{p.pezzi}} pz.</p>
+  <p>Venduto da : {{p.societa.nome}}</p>
+        </div>
+        <div class="col-md-12" *ngIf="category.product.length==0">
+        <h2>Non ci sono ancora prodotti per questa categoria</h2></div>
+      </div>
     </div>
   </div>
 </div>
