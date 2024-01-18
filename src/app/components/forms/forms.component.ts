@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Route, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -15,7 +16,7 @@ signup!:FormGroup
 error:string=''
 nations:any
 cities:any
-constructor(private authService:AuthService){}
+constructor(private authService:AuthService,private router:Router){}
 
 ngOnInit(): void {
 
@@ -41,14 +42,23 @@ ripetiPassword:new FormControl('',[Validators.required,Validators.minLength(6)])
 }
 
 
-log(){
+log(body?:any){
 if(this.login.valid){
   this.authService.logIn(
     {
-      email:this.login.controls['email'].value,
-      password:this.login.controls['password'].value
+      email:body.email||this.login.controls['email'].value,
+      password:body.password||this.login.controls['password'].value
     }
-    ).subscribe((data:any)=>{console.log(data)},err=>{
+    ).subscribe((data:any)=>{
+      if(data){
+this.authService.setToken(data.tokens.authToken)
+this.authService.setRefreshToken(data.tokens.refreshToken)
+this.authService.authenticateUser(true)
+localStorage.setItem('authToken',this.authService.token)
+localStorage.setItem('refreshToken',this.authService.token)
+this.router.navigate(['/home'])
+}
+    },err=>{
       this.error=err.error.message||"Qualcosa è andato storto nel login"
     })
 }else{
@@ -67,7 +77,12 @@ if(this.signup.valid&&this.signup.controls['password'].value==this.signup.contro
       citta:this.signup.controls['citta'].value,
       nazione:this.signup.controls['nazione'].value
     }
-    ).subscribe((data:any)=>{console.log(data)},err=>{
+    ).subscribe((data:any)=>{
+if(data){
+  localStorage.setItem('user',JSON.stringify(data))
+this.log({email:this.signup.controls['email'].value,password:this.signup.controls['password'].value})
+}
+    },err=>{
       this.error=err.error.message||"Qualcosa è andato storto nel signup"
     })
 }else{
