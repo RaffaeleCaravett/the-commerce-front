@@ -29,7 +29,6 @@ if(localStorage.getItem('authToken')){
       localStorage.setItem('refreshToken',this.authService.token)
       this.router.navigate(['/home'])
     }
-
   },err=>{
     if(localStorage.getItem('refreshToken')){
       this.authService.verifyRefreshToken(localStorage.getItem('refreshToken')!).subscribe((data:any)=>{

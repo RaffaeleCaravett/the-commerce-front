@@ -6,15 +6,69 @@
 <div class="col-md-4 p-2">
   <div class="p-2 border rounded shadow fs-4">
     <h2 class="p-2">Info</h2>
-<p>Nome</p>
-<p>Email</p>
-<p>Nazione</p>
-<p>Città</p>
-<p>Età</p>
+<div class="m-1 bg-light py-2 rounded shadow">
+  <p class="fs-3 fw-bold  ">Nome : </p>
+<p class="fs-5">{{user.nomeCompleto}}</p>
+</div>
+<div class="m-1 bg-light py-2 rounded shadow">
+<p class="fs-3 fw-bold  ">Email : </p>
+<p class="fs-5 overflow-auto">{{user.email}}</p>
+</div>
+<div class="m-1 bg-light py-2 rounded shadow">
+<p class="fs-3 fw-bold ">Nazione : </p>
+<p class="fs-5">{{user.nazione.nome}}</p>
+</div>
+<div class="m-1 bg-light py-2 rounded shadow">
+<p class="fs-3  fw-bold ">Città : </p>
+<p class="fs-5">{{user.citta.nome}}</p>
+</div>
+<div class="m-1 bg-light py-2 rounded shadow">
+<p class="fs-3 fw-bold ">Età : </p>
+<p class="fs-5">{{user['età']}}</p>
+</div>
   </div>
 </div>
 <div class="col-md-8 p-2">
-
+  <div class="p-2 border rounded shadow fs-4">
+    <div class="row">
+      <div class="col-md-4 p-3">
+        <div class="m-1 bg-light py-2 rounded shadow">
+    <p class="fs-3 fw-bold ">Acquisti effettuati : </p>
+    <p class="fs-5" *ngIf="acquisti">{{acquisti.length}}</p>
+    </div>
+      </div>
+      <div class="col-md-4 p-3">
+        <div class="m-1 bg-light py-2 rounded shadow">
+    <p class="fs-3 fw-bold ">Crediti : </p>
+    <p class="fs-5">{{user.crediti}}</p>
+    </div>
+      </div>
+      <div class="col-md-4 p-3">
+        <div class="m-1 bg-light py-2 rounded shadow">
+    <p class="fs-3 fw-bold ">Bozze : </p>
+    <p class="fs-5">{{bozze.length}}</p>
+    </div>
+      </div>
+      <div class="col-md-12 p-3">
+        <div class="m-1 bg-light py-2 rounded shadow">
+    <p class="fs-3 fw-bold ">I tuoi prodotti preferiti : </p>
+    <p class="fs-5">{{bozze.length}}</p>
+    </div>
+      </div>
+      <div class="col-md-12 p-3">
+        <div class="m-1 bg-light py-2 rounded shadow">
+    <p class="fs-3 fw-bold ">Le tue recensioni : </p>
+    <p class="fs-5">{{bozze.length}}</p>
+    </div>
+      </div>
+      <div class="col-md-12 p-3">
+        <div class="m-1 bg-light py-2 rounded shadow">
+    <p class="fs-3 fw-bold ">Cosa hai cercato di recente?: </p>
+    <p class="fs-5">{{bozze.length}}</p>
+    </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="col-md-12 p-2">
   <h2 class="p-2">
