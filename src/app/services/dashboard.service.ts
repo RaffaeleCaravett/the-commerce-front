@@ -9,6 +9,7 @@ export class DashboardService {
 
 private acquisto:string='/acquisto'
 private bozza:string='/bozza'
+private ricerca:string='/ricerca'
 
   constructor(private http:HttpClient){}
 
@@ -18,5 +19,8 @@ private bozza:string='/bozza'
   }
   getBozza(userId:number){
     return this.http.get(environment.API_URL+this.bozza+`/user/${userId}`)
+  }
+  getRicerca(userId:number){
+    return this.http.get(environment.API_URL+this.ricerca+`/user/${userId}`)
   }
 }

@@ -64,7 +64,7 @@
       <div class="col-md-12 p-3">
         <div class="m-1 bg-light py-2 rounded shadow">
     <p class="fs-3 fw-bold ">Cosa hai cercato di recente?: </p>
-    <p class="fs-5">{{bozze.length}}</p>
+    <p class="fs-5"><span *ngFor="let r of ricerca;index as i">{{i!=ricerca.length-1?r.testo+' ,':r.testo}}</span></p>
     </div>
       </div>
     </div>

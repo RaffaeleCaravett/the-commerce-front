@@ -9,6 +9,8 @@ export class AppService {
 
   private visit:string='/visit'
   private category:string='/category'
+  private ricerca:string='/ricerca'
+
 
   constructor(private http:HttpClient) { }
 
@@ -23,5 +25,8 @@ getCategory(){
 }
 getCategoryById(id:number){
   return this.http.get(environment.API_URL+this.category+`/${id}`)
+}
+saveRicerca(ricerca:{}){
+  return this.http.post(environment.API_URL+this.ricerca,ricerca)
 }
 }

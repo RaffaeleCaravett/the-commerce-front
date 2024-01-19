@@ -12,6 +12,7 @@ anagrafica!:FormGroup
 user:any
 acquisti:any
 bozze:any
+ricerca:any
 constructor(private dashboardService:DashboardService){}
 
 ngOnInit(): void {
@@ -37,6 +38,9 @@ this.dashboardService.getAcquisti(this.user.id).subscribe((data:any)=>{
 })
 this.dashboardService.getBozza(this.user.id).subscribe((data:any)=>{
   this.bozze= data
+})
+this.dashboardService.getRicerca(this.user.id).subscribe((data:any)=>{
+  this.ricerca= data
 })
 }
 }
