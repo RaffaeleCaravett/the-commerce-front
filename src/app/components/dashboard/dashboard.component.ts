@@ -40,19 +40,17 @@ if(localStorage.getItem('user')){
   this.dashboardService.getAnagraficaByUserId(this.user.id).subscribe((data:any)=>{
   this.schedaAnagrafica=data
 
-  this.anagrafica=new FormGroup({
-    nome:new FormControl(this.schedaAnagrafica.nome,Validators.required),
-    cognome:new FormControl(this.schedaAnagrafica.cognome,Validators.required),
-    email:new FormControl(this.schedaAnagrafica.email,[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-    tipoUtente:new FormControl(this.schedaAnagrafica.role,Validators.required),
-    codiceFiscale:new FormControl(this.schedaAnagrafica.codiceFiscale||'',Validators.pattern('^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$')),
-    partitaIva:new FormControl(this.schedaAnagrafica.partitaIva||'',Validators.pattern("^[0-9]{11}$")),
-    via:new FormControl(this.schedaAnagrafica.via,Validators.required),
-    indirizzo:new FormControl(this.schedaAnagrafica.indirizzo,Validators.required),
-    numeroCivico:new FormControl(this.schedaAnagrafica.numeroCivico,Validators.required),
-    cap:new FormControl(this.schedaAnagrafica.cap,Validators.required),
-    capitaleSociale:new FormControl(this.schedaAnagrafica.capitaleSociale,Validators.required)
-    })
+    this.anagrafica.controls['nome'].setValue(this.schedaAnagrafica.nome),
+    this.anagrafica.controls['cognome'].setValue(this.schedaAnagrafica.cognome),
+    this.anagrafica.controls['email'].setValue(this.schedaAnagrafica.email),
+    this.anagrafica.controls['tipoUtente'].setValue(this.schedaAnagrafica.role),
+    this.anagrafica.controls['codiceFiscale'].setValue(this.schedaAnagrafica.codiceFiscale),
+    this.anagrafica.controls['partitaIva'].setValue(this.schedaAnagrafica.partitaIva),
+    this.anagrafica.controls['via'].setValue(this.schedaAnagrafica.via),
+    this.anagrafica.controls['indirizzo'].setValue(this.schedaAnagrafica.indirizzo),
+    this.anagrafica.controls['numeroCivico'].setValue(this.schedaAnagrafica.numeroCivico),
+    this.anagrafica.controls['cap'].setValue(this.schedaAnagrafica.cap),
+    this.anagrafica.controls['capitaleSociale'].setValue(this.schedaAnagrafica.capitaleSociale),
 this.anagrafica.updateValueAndValidity()
 })
 }
@@ -65,6 +63,12 @@ this.dashboardService.getBozza(this.user.id).subscribe((data:any)=>{
 })
 this.dashboardService.getRicerca(this.user.id).subscribe((data:any)=>{
   this.ricerca= data
+})
+this.dashboardService.getLike(this.user.id).subscribe((data:any)=>{
+  this.likes= data
+})
+this.dashboardService.getRating(this.user.id).subscribe((data:any)=>{
+  this.recensioni= data
 })
 
 }
@@ -121,6 +125,7 @@ this.dashboardService.saveAnagrafica(
         if(this.anagrafica.controls['codiceFiscale'].value==''&&this.anagrafica.controls['partitaIva'].value==''){
           this.error='Il campo C.F e P. Iva sono entrambi vuoti'
         }else{
+          console.log(this.anagrafica.controls['partitaIva'].value)
   this.dashboardService.updateAnagraficaById(this.schedaAnagrafica.id,{
     nome:this.anagrafica.controls['nome'].value,
     cognome:this.anagrafica.controls['cognome'].value,

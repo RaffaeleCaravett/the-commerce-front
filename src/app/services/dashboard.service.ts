@@ -11,6 +11,8 @@ private acquisto:string='/acquisto'
 private bozza:string='/bozza'
 private ricerca:string='/ricerca'
 private anagrafica:string='/scheda'
+private like:string='/like'
+private rating:string='/api/ratings'
   constructor(private http:HttpClient){}
 
 
@@ -23,6 +25,12 @@ private anagrafica:string='/scheda'
   getRicerca(userId:number){
     return this.http.get(environment.API_URL+this.ricerca+`/user/${userId}`)
   }
+  getLike(userId:number){
+    return this.http.get(environment.API_URL+this.like+`/user/${userId}`)
+  }
+  getRating(userId:number){
+    return this.http.get(environment.API_URL+this.rating+`/user/${userId}`)
+  }
   saveAnagrafica(anagrafica:any){
     return this.http.post(environment.API_URL+this.anagrafica,anagrafica)
   }
@@ -30,6 +38,6 @@ private anagrafica:string='/scheda'
     return this.http.get(environment.API_URL+`${this.anagrafica}/user/${userId}`)
   }
   updateAnagraficaById(anagraficaId:any,body:{}){
-    return this.http.get(environment.API_URL+`${this.anagrafica}/${anagraficaId}`,body)
+    return this.http.put(environment.API_URL+`${this.anagrafica}/${anagraficaId}`,body)
   }
 }
