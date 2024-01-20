@@ -55,8 +55,13 @@ this.authService.setToken(data.tokens.accessToken)
 this.authService.setRefreshToken(data.tokens.refreshToken)
 this.authService.authenticateUser(true)
 localStorage.setItem('authToken',this.authService.token)
-localStorage.setItem('refreshToken',this.authService.token)
+this.authService.verifyToken(this.authService.token).subscribe((user:any)=>{
+  if(user){
+    localStorage.setItem('user',JSON.stringify(user))
+    localStorage.setItem('refreshToken',this.authService.token)
 this.router.navigate(['/home'])
+  }
+})
 }
     },err=>{
       this.error=err.error.message||"Qualcosa è andato storto nel login"

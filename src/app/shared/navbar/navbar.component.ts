@@ -29,6 +29,9 @@ if(localStorage.getItem('user')){
 }
 cerca(){
   if(this.search.valid){
+    if(localStorage.getItem('user')){
+      this.user=JSON.parse(localStorage.getItem('user')!)
+    }
     if(this.user){
        this.appService.saveRicerca({
       user_id:this.user.id,

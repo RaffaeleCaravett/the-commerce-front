@@ -39,26 +39,26 @@
       </div>
       <div class="col-md-4 p-3">
         <div class="m-1 bg-light py-2 rounded shadow">
-    <p class="fs-3 fw-bold ">Crediti : </p>
-    <p class="fs-5">{{user.crediti}}</p>
+    <p class="fs-3 fw-bold ">Crediti accumulati: </p>
+    <p class="fs-5" *ngIf="acquisti">{{user.crediti}}</p>
     </div>
       </div>
       <div class="col-md-4 p-3">
         <div class="m-1 bg-light py-2 rounded shadow">
-    <p class="fs-3 fw-bold ">Bozze : </p>
-    <p class="fs-5">{{bozze.length}}</p>
+    <p class="fs-3 fw-bold ">Bozze di ordini : </p>
+    <p class="fs-5" *ngIf="bozze">{{bozze.length}}</p>
     </div>
       </div>
       <div class="col-md-12 p-3">
         <div class="m-1 bg-light py-2 rounded shadow">
     <p class="fs-3 fw-bold ">I tuoi prodotti preferiti : </p>
-    <p class="fs-5">{{bozze.length}}</p>
+    <p class="fs-5" *ngIf="likes">{{likes.length}}</p>
     </div>
       </div>
       <div class="col-md-12 p-3">
         <div class="m-1 bg-light py-2 rounded shadow">
     <p class="fs-3 fw-bold ">Le tue recensioni : </p>
-    <p class="fs-5">{{bozze.length}}</p>
+    <p class="fs-5" *ngIf="recensioni">{{recensioni.length}}</p>
     </div>
       </div>
       <div class="col-md-12 p-3">
@@ -114,15 +114,15 @@
           <div class="row p-2 border rounded bg-light">
            <div class="col-md-12 p-2" *ngIf="anagrafica.controls['tipoUtente'].value&&anagrafica.controls['tipoUtente'].value!=''">
         <h2 *ngIf="anagrafica.controls['tipoUtente'].value=='UTENTE'">Codice fiscale</h2>
-        <h2 *ngIf="anagrafica.controls['tipoUtente'].value=='VENDITORE'">Codice fiscale</h2>
+        <h2 *ngIf="anagrafica.controls['tipoUtente'].value=='VENDITORE'">Partita Iva</h2>
       </div>
       <div class="col-md-6 p-2">
-        <label for="" class="form-label" *ngIf="anagrafica.controls['tipoUtente'].value=='UTENTE'">Codice fiscale</label>
+        <label for="" class="form-label" *ngIf="anagrafica.controls['tipoUtente'].value=='UTENTE'">Codice fiscale (ES. aaaaaa11a11a111a)</label>
         <input type="text" class="form-control" *ngIf="anagrafica.controls['tipoUtente'].value=='UTENTE'"
         formControlName="codiceFiscale">
       </div>
       <div class="col-md-6 p-2">
-        <label for="" class="form-label" *ngIf="anagrafica.controls['tipoUtente'].value=='VENDITORE'">Partita iva</label>
+        <label for="" class="form-label" *ngIf="anagrafica.controls['tipoUtente'].value=='VENDITORE'">Partita iva (ES. 11111111111)</label>
         <input type="text" class="form-control" *ngIf="anagrafica.controls['tipoUtente'].value=='VENDITORE'"
         formControlName="partitaIva">
       </div>
@@ -141,7 +141,11 @@
   <label for="">Indirizzo</label>
   <input type="text" formControlName="indirizzo" class="form-control">
   </div>
-  <div class="col-md-4 p-2">
+  <div class="col-md-2 p-2">
+    <label for="">Numero Civico</label>
+    <input type="number" formControlName="numeroCivico" class="form-control">
+    </div>
+  <div class="col-md-2 p-2">
     <label for="">Cap</label>
     <input type="number" formControlName="cap" class="form-control">
     </div>
@@ -159,6 +163,19 @@
       </div>
     </div>
     </div>
+    <div class="col-md-12 p-2">
+      <div class="row p-2 border rounded bg-light">
+    <div class="col-md-12 py-2 text-center fs-bold text-danger" *ngIf="error!=''">
+      {{error}}
+    </div>
+    <div class="col-md-12 py-2 text-center fs-bold text-success" *ngIf="success!=''">
+      {{success}}
+    </div>
+    <div class="col-md-12 p-2 text-end">
+      <button class="btn btn-success" (click)="saveAnagrafica()">Aggiorna anagrafica</button>
+    </div>
+      </div>
+    </div>
   </form>
 </div>
 <div class="col-md-12 p-2" *ngIf="user && user.role=='VENDITORE'">
@@ -172,18 +189,6 @@
 </h2>
   </div>
 </div>
-<div class="col-md-12" *ngIf="user && user.role=='UTENTE'">
-  <div class="row">
-    <div class="col-md-12 p-2">
-      <h2>I tuoi acquisti
-  </h2>
-    </div>
-    <div class="col-md-12 p-2">
-      <h2>Prodotti salvati
-  </h2>
-    </div>
-  </div>
-  </div>
 </div>
 
 </div>

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/environment';
 
 @Injectable({
@@ -12,8 +13,11 @@ export class AppService {
   private ricerca:string='/ricerca'
 
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private router :Router) { }
 
+  goHome(){
+return this.router.navigate(['/home'])
+  }
 saveVisit(){
   return this.http.post(environment.API_URL+this.visit,{})
 }
