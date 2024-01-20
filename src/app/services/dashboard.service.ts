@@ -26,4 +26,10 @@ private anagrafica:string='/scheda'
   saveAnagrafica(anagrafica:any){
     return this.http.post(environment.API_URL+this.anagrafica,anagrafica)
   }
+  getAnagraficaByUserId(userId:any){
+    return this.http.get(environment.API_URL+`${this.anagrafica}/user/${userId}`)
+  }
+  updateAnagraficaById(anagraficaId:any,body:{}){
+    return this.http.get(environment.API_URL+`${this.anagrafica}/${anagraficaId}`,body)
+  }
 }

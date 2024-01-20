@@ -22,7 +22,8 @@
     <button class="btn fs-5" [routerLink]="'/stats'">Bestseller</button>
   </div>
   <div class="col-md-2">
-    <button class="btn fs-5" [routerLink]="'/forms'">Login/Signup</button>
+    <button class="btn fs-5" [routerLink]="'/forms'" *ngIf="!isAuthenticated">Login/Signup</button>
+    <button class="btn fs-5" (click)="logout()" *ngIf="isAuthenticated">Logout</button>
   </div>
 </div>
 </nav>

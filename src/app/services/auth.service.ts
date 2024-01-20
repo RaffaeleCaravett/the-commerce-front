@@ -47,6 +47,6 @@ this.authGuard.authenticateUser(bool||undefined)
                 return this.http.get(environment.API_URL+'/auth/'+token)
               }
               verifyRefreshToken(refreshToken:string){
-                return this.http.get(environment.API_URL+'/auth/refreshToken'+refreshToken)
+                return this.http.get(environment.API_URL+'/auth/refreshToken/'+refreshToken)
               }
 }

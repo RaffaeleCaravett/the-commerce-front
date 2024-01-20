@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {  Router } from '@angular/router';
+import { AuthGuard } from 'src/app/core/guard/auth.guard';
 import { AppService } from 'src/app/services/app.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
 
@@ -9,12 +10,18 @@ import { DashboardService } from 'src/app/services/dashboard.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit,AfterContentChecked{
 
 search!:FormGroup
 categories:any
 user:any
-constructor(private router:Router,private appService:AppService){}
+isAuthenticated!:boolean
+
+constructor(private router:Router,private appService:AppService,private authGuard:AuthGuard){}
+  ngAfterContentChecked(): void {
+    this.isAuthenticated=this.authGuard.isAuthenticated
+     }
+
 ngOnInit(): void {
 
 this.search=new FormGroup({
@@ -41,5 +48,11 @@ cerca(){
 
 this.router.navigate(['cerca'])
   }
+}
+logout(){
+  localStorage.clear()
+  this.user=undefined
+  this.authGuard.isAuthenticated=false
+  this.router.navigate(['/home'])
 }
 }
