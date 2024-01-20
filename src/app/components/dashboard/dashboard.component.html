@@ -162,9 +162,8 @@
       </div>
       </div>
     </div>
-    </div>
     <div class="col-md-12 p-2">
-      <div class="row p-2 border rounded bg-light">
+      <div class="row py-2 border rounded bg-light">
     <div class="col-md-12 py-2 text-center fs-bold text-danger" *ngIf="error!=''">
       {{error}}
     </div>
@@ -176,10 +175,18 @@
     </div>
       </div>
     </div>
+    </div>
   </form>
 </div>
 <div class="col-md-12 p-2" *ngIf="user && user.role=='VENDITORE'">
 <div class="row">
+  <div class="col-md-12 p-2" *ngIf="societa">
+    <h1>Societa
+      <form [formGroup]="societaForm" class="d-flex">
+      <input type="text" formControlName="societaName" class="form-control" value="{{societa.nome}}">
+    <button class="btn" (click)="modifySocietyName()">Modifica</button></form>
+      </h1>
+  </div>
   <div class="col-md-12 p-2">
     <h2>I tuoi prodotti
 </h2>

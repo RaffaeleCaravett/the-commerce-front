@@ -13,7 +13,9 @@ private ricerca:string='/ricerca'
 private anagrafica:string='/scheda'
 private like:string='/like'
 private rating:string='/api/ratings'
-  constructor(private http:HttpClient){}
+private societa:string='/societa'
+
+constructor(private http:HttpClient){}
 
 
   getAcquisti(userId:number){
@@ -39,5 +41,17 @@ private rating:string='/api/ratings'
   }
   updateAnagraficaById(anagraficaId:any,body:{}){
     return this.http.put(environment.API_URL+`${this.anagrafica}/${anagraficaId}`,body)
+  }
+  saveSocieta(societa:{}){
+    return this.http.post(environment.API_URL+this.societa,societa)
+  }
+  getSocietaByAnagraficaId(anagraficaId:number){
+    return this.http.get(environment.API_URL+this.societa+'/'+anagraficaId)
+  }
+  deleteSocieta(id:number){
+    return this.http.delete(environment.API_URL+this.societa+`/${id}`)
+  }
+  updateSociety(societyId:number,society:{}){
+    return this.http.put(environment.API_URL+this.societa+'/'+societyId,society)
   }
 }

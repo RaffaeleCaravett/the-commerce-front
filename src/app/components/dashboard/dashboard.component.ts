@@ -18,10 +18,14 @@ likes:any
 recensioni:any
 success:string=''
 schedaAnagrafica:any
+societa:any
+societaForm!:FormGroup
 constructor(private dashboardService:DashboardService){}
 
 ngOnInit(): void {
-
+  this.societaForm=new FormGroup({
+    societyName:new FormControl('',Validators.required)
+  })
 this.anagrafica=new FormGroup({
 nome:new FormControl('',Validators.required),
 cognome:new FormControl('',Validators.required),
@@ -52,6 +56,16 @@ if(localStorage.getItem('user')){
     this.anagrafica.controls['cap'].setValue(this.schedaAnagrafica.cap),
     this.anagrafica.controls['capitaleSociale'].setValue(this.schedaAnagrafica.capitaleSociale),
 this.anagrafica.updateValueAndValidity()
+if(this.schedaAnagrafica.role=='VENDITORE'){
+  this.dashboardService.getSocietaByAnagraficaId(this.schedaAnagrafica.id).subscribe((scheda:any)=>{
+    if(scheda){
+      this.societa=scheda
+      this.societaForm=new FormGroup({
+  societyName:new FormControl(this.societa.nome,Validators.required)
+})
+    }
+  })
+}
 })
 }
 
@@ -118,6 +132,7 @@ this.dashboardService.saveAnagrafica(
 }else {
   if(this.anagrafica.controls['tipoUtente'].value=='UTENTE'){
     this.anagrafica.controls['capitaleSociale'].setValue(0)
+    this.anagrafica.controls['partitaIva'].setValue('')
     }else{
       this.anagrafica.controls['codiceFiscale'].setValue(null)
     }
@@ -125,7 +140,6 @@ this.dashboardService.saveAnagrafica(
         if(this.anagrafica.controls['codiceFiscale'].value==''&&this.anagrafica.controls['partitaIva'].value==''){
           this.error='Il campo C.F e P. Iva sono entrambi vuoti'
         }else{
-          console.log(this.anagrafica.controls['partitaIva'].value)
   this.dashboardService.updateAnagraficaById(this.schedaAnagrafica.id,{
     nome:this.anagrafica.controls['nome'].value,
     cognome:this.anagrafica.controls['cognome'].value,
@@ -142,6 +156,25 @@ this.dashboardService.saveAnagrafica(
   }).subscribe((data:any)=>{
 if(data){
   this.schedaAnagrafica=data
+  if(this.schedaAnagrafica.role=='VENDITORE'){
+this.dashboardService.saveSocieta({
+  nome:this.schedaAnagrafica.partitaIva,
+  scheda_anagrafica_id:this.schedaAnagrafica.id
+}).subscribe((societa:any)=>{
+  if(societa){
+    this.societa=societa
+  }
+})
+  }else{
+this.dashboardService.getSocietaByAnagraficaId(this.schedaAnagrafica.id).subscribe((societa:any)=>{
+  if(societa){
+this.dashboardService.deleteSocieta(data.id).subscribe((soc:any)=>{
+  console.log(soc)
+},err=>{console.log(err)})
+  }
+})
+  }
+this.user.role=this.schedaAnagrafica.role
   this.success="Scheda aggiornata correttamente"
 }
 },err=>{
@@ -152,5 +185,23 @@ this.error=err.error.message
         this.error="Compila il form"
       }
     }
+}
+
+modifySocietyName(){
+if(this.societaForm.valid){
+  this.dashboardService.updateSociety(
+    this.societa.id,
+{
+    nome:this.societaForm.controls['societaName'].value,
+    scheda_anagrafica_id:this.schedaAnagrafica.id
+  }
+    ).subscribe((societa:any)=>{
+      if(societa){
+        this.societa=societa
+        this.societaForm.controls['societaName'].setValue(this.societa.nome)
+        this.societaForm.updateValueAndValidity()
+      }
+    })
+}
 }
 }
