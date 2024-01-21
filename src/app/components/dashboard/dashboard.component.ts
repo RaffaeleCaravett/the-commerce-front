@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { DashboardService } from 'src/app/services/dashboard.service';
 
 @Component({
@@ -20,11 +21,26 @@ success:string=''
 schedaAnagrafica:any
 societa:any
 societaForm!:FormGroup
-constructor(private dashboardService:DashboardService){}
+prodotto!:FormGroup
+categories:any
+constructor(private dashboardService:DashboardService, private toastr:ToastrService){}
 
 ngOnInit(): void {
+  this.dashboardService.getCategory().subscribe((category:any)=>{
+    if(category){
+      this.categories=category
+    }
+  })
+  this.prodotto=new FormGroup({
+    nome:new FormControl('',Validators.required),
+    tipoProdotto:new FormControl('',Validators.required),
+    prezzo:new FormControl('',Validators.required),
+    pezzi:new FormControl('',Validators.required),
+    category_id:new FormControl('',Validators.required),
+    societa_id:new FormControl({value:'', disabled: true},Validators.required)
+  })
   this.societaForm=new FormGroup({
-    societyName:new FormControl('',Validators.required)
+    societaName:new FormControl('',Validators.required)
   })
 this.anagrafica=new FormGroup({
 nome:new FormControl('',Validators.required),
@@ -61,12 +77,22 @@ if(this.schedaAnagrafica.role=='VENDITORE'){
     if(scheda){
       this.societa=scheda
       this.societaForm=new FormGroup({
-  societyName:new FormControl(this.societa.nome,Validators.required)
+  societaName:new FormControl(this.societa.nome,Validators.required)
 })
     }
   })
 }
 })
+if(this.societa){
+  this.prodotto=new FormGroup({
+    nome:new FormControl('',Validators.required),
+    tipoProdotto:new FormControl('',Validators.required),
+    prezzo:new FormControl('',Validators.required),
+    pezzi:new FormControl('',Validators.required),
+    category_id:new FormControl('',Validators.required),
+    societa_id:new FormControl({value:this.societa.id,disabled:true},Validators.required)
+  })
+}
 }
 
 this.dashboardService.getAcquisti(this.user.id).subscribe((data:any)=>{
@@ -88,8 +114,7 @@ this.dashboardService.getRating(this.user.id).subscribe((data:any)=>{
 }
 
 saveAnagrafica(){
-this.success=''
-this.error=''
+
 if(!this.schedaAnagrafica){
   if(this.anagrafica.controls['tipoUtente'].value=='UTENTE'){
 this.anagrafica.controls['capitaleSociale'].setValue(0)
@@ -99,7 +124,7 @@ this.anagrafica.controls['capitaleSociale'].setValue(0)
 }
   if(this.anagrafica.valid){
     if(this.anagrafica.controls['codiceFiscale'].value==''&&this.anagrafica.controls['partitaIva'].value==''){
-      this.error='Il campo C.F e P. Iva sono entrambi vuoti'
+      this.toastr.error('Il campo C.F e P. Iva sono entrambi vuoti')
     }else{
       this.error=''
 this.dashboardService.saveAnagrafica(
@@ -120,14 +145,14 @@ this.dashboardService.saveAnagrafica(
 ).subscribe((scheda:any)=>{
   if(scheda){
       this.schedaAnagrafica=scheda
-      this.success="Scheda aggiornata correttamente"
+      this.toastr.success("Scheda aggiornata correttamente")
   }
 },err=>{
-  this.error=err.error.message
+  this.toastr.error(err.error.message)
 })
     }
   }else{
-    this.error="Compila il form"
+    this.toastr.error("Compila il form")
   }
 }else {
   if(this.anagrafica.controls['tipoUtente'].value=='UTENTE'){
@@ -138,7 +163,7 @@ this.dashboardService.saveAnagrafica(
     }
       if(this.anagrafica.valid){
         if(this.anagrafica.controls['codiceFiscale'].value==''&&this.anagrafica.controls['partitaIva'].value==''){
-          this.error='Il campo C.F e P. Iva sono entrambi vuoti'
+          this.toastr.error('Il campo C.F e P. Iva sono entrambi vuoti')
         }else{
   this.dashboardService.updateAnagraficaById(this.schedaAnagrafica.id,{
     nome:this.anagrafica.controls['nome'].value,
@@ -169,20 +194,19 @@ this.dashboardService.saveSocieta({
 this.dashboardService.getSocietaByAnagraficaId(this.schedaAnagrafica.id).subscribe((societa:any)=>{
   if(societa){
 this.dashboardService.deleteSocieta(data.id).subscribe((soc:any)=>{
-  console.log(soc)
 },err=>{console.log(err)})
   }
 })
   }
 this.user.role=this.schedaAnagrafica.role
-  this.success="Scheda aggiornata correttamente"
+this.toastr.success("Scheda aggiornata correttamente")
 }
 },err=>{
-this.error=err.error.message
+  this.toastr.error(err.error.message)
 })
 }
       }else{
-        this.error="Compila il form"
+        this.toastr.error("Compila il form")
       }
     }
 }
@@ -203,5 +227,21 @@ if(this.societaForm.valid){
       }
     })
 }
+}
+addProdotto(){
+  if(this.prodotto.valid){
+this.dashboardService.saveProdotto(
+  {
+    nome:new FormControl('',Validators.required),
+    tipoProdotto:new FormControl('',Validators.required),
+    prezzo:new FormControl('',Validators.required),
+    pezzi:new FormControl('',Validators.required),
+    category_id:new FormControl('',Validators.required),
+    societa_id:new FormControl(this.societa.id,Validators.required)
+  }
+)
+  }else{
+    this.toastr.error('Il form non è valido')
+  }
 }
 }

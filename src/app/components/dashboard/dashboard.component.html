@@ -80,6 +80,7 @@
     <div class="row p-2 border rounded bg-light">
    <div class="col-md-12 p-2">
         <h2>Informazioni personali</h2>
+        <h6 *ngIf="user && user.role=='VENDITORE' && societa">Per eliminare la tua società, basta modificare il profilo da venditore a utente. Elimineremo tutte le informazioni relative alla tua società.</h6>
       </div>
       <div class="col-md-4 p-2">
         <label for="" class="form-label">Nome</label>
@@ -190,6 +191,35 @@
   <div class="col-md-12 p-2">
     <h2>I tuoi prodotti
 </h2>
+<div class="row">
+  <div class="col-md-6">
+    <h2>Inserisci i tuoi prodotti. 📋</h2>
+    <form [formGroup]="prodotto">
+
+    <label for="" class="p-1">Nome prodotto</label>
+    <input type="text" formControlName="nome" class="form-control">
+    <label for="" class="p-1">Tipo Prodotto</label>
+<select formControlName="tipoProdotto" class="form-select">
+  <option value=""></option>
+  <option value="NUOVO">Nuovo</option>
+  <option value="USATO">Usato</option>
+</select>
+    <label for="" class="p-1">Prezzo    </label>
+    <input type="number" formControlName="prezzo" class="form-control">
+    <label for="" class="p-1">Pezzi</label>
+    <input type="number" formControlName="pezzi" class="form-control">
+    <label for="" class="p-1">Categoria</label>
+    <select formControlName="category_id" class="form-select">
+      <option value=""></option>
+      <option value="{{c.id}}" *ngFor="let c of categories">{{c.name}}</option>
+    </select>
+    <label for="" class="p-1">Società</label>
+ <input type="number" class="form-control" formControlName="societa_id" [disabled]="true" placeholder="{{societa.nome}}">
+ <button class="btn m-1" (click)="addProdotto()">Aggiungi prodotto</button>
+  </form>
+  </div>
+  <div class="col-md-6"></div>
+</div>
 </div>
 <div class="col-md-12 p-2" >
   <h2>  I tuoi incassi

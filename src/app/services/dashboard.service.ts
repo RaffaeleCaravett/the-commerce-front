@@ -14,6 +14,8 @@ private anagrafica:string='/scheda'
 private like:string='/like'
 private rating:string='/api/ratings'
 private societa:string='/societa'
+private category:string='/category'
+private prodotto:string='/products'
 
 constructor(private http:HttpClient){}
 
@@ -54,4 +56,10 @@ constructor(private http:HttpClient){}
   updateSociety(societyId:number,society:{}){
     return this.http.put(environment.API_URL+this.societa+'/'+societyId,society)
   }
+  getCategory(){
+    return this.http.get(environment.API_URL+this.category)
+  }
+saveProdotto(prodotto:{}){
+  return this.http.post(environment.API_URL+this.prodotto,prodotto)
+}
 }
