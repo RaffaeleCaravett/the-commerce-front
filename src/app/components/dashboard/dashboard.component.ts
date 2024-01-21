@@ -232,14 +232,20 @@ addProdotto(){
   if(this.prodotto.valid){
 this.dashboardService.saveProdotto(
   {
-    nome:new FormControl('',Validators.required),
-    tipoProdotto:new FormControl('',Validators.required),
-    prezzo:new FormControl('',Validators.required),
-    pezzi:new FormControl('',Validators.required),
-    category_id:new FormControl('',Validators.required),
-    societa_id:new FormControl(this.societa.id,Validators.required)
+    nome:this.prodotto.controls['nome'].value,
+    tipoProdotto:this.prodotto.controls['tipoProdotto'].value,
+    prezzo:this.prodotto.controls['prezzo'].value,
+    pezzi:this.prodotto.controls['pezzi'].value,
+    category_id:Number(this.prodotto.controls['category_id'].value),
+    societa_id:this.societa.id
   }
-)
+).subscribe((prodotto:any)=>{
+  if(prodotto){
+    this.toastr.success('Prodotto salvato')
+  }
+},err=>{
+  this.toastr.error(err.error.message)
+})
   }else{
     this.toastr.error('Il form non è valido')
   }
