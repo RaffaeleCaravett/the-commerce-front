@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { RouterModule } from '@angular/router';
 ReactiveFormsModule,
 RouterModule.forChild([
   { path: '', component: DashboardComponent }
-])
+]),
+MatDialogModule
   ],
   providers: [],
   bootstrap: [],

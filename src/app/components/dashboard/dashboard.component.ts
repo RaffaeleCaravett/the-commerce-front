@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { DashboardService } from 'src/app/services/dashboard.service';
+import { ErrorComponent } from 'src/app/shared/error/error.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit,AfterContentChecked{
 anagrafica!:FormGroup
 user:any
 acquisti:any
@@ -25,9 +27,16 @@ prodotto!:FormGroup
 categories:any
 productImage:any=''
 selectedFile:any=null
-constructor(private dashboardService:DashboardService, private toastr:ToastrService){}
+prodotti:any
+modif:boolean=false
+productToModifyId!:number
+constructor(private dashboardService:DashboardService, private toastr:ToastrService,private dialog:MatDialog){}
+  ngAfterContentChecked(): void {
+
+  }
 
 ngOnInit(): void {
+  this.modif=false
   this.dashboardService.getCategory().subscribe((category:any)=>{
     if(category){
       this.categories=category
@@ -82,19 +91,21 @@ if(this.schedaAnagrafica.role=='VENDITORE'){
   societaName:new FormControl(this.societa.nome,Validators.required)
 })
     }
+    if(this.societa){
+      this.prodotto=new FormGroup({
+        nome:new FormControl('',Validators.required),
+        tipoProdotto:new FormControl('',Validators.required),
+        prezzo:new FormControl('',Validators.required),
+        pezzi:new FormControl('',Validators.required),
+        category_id:new FormControl('',Validators.required),
+        societa_id:new FormControl({value:this.societa.id,disabled:true},Validators.required)
+      })
+this.prodotti=this.societa.products
+    }
   })
 }
 })
-if(this.societa){
-  this.prodotto=new FormGroup({
-    nome:new FormControl('',Validators.required),
-    tipoProdotto:new FormControl('',Validators.required),
-    prezzo:new FormControl('',Validators.required),
-    pezzi:new FormControl('',Validators.required),
-    category_id:new FormControl('',Validators.required),
-    societa_id:new FormControl({value:this.societa.id,disabled:true},Validators.required)
-  })
-}
+
 }
 
 this.dashboardService.getAcquisti(this.user.id).subscribe((data:any)=>{
@@ -243,7 +254,7 @@ this.dashboardService.saveProdotto(
   },this.selectedFile
 ).subscribe((prodotto:any)=>{
   if(prodotto){
-    this.toastr.success('Prodotto salvato')
+    this.toastr.success("Prodotto salvato, ci vorrà un po' per aggiornare la lista.")
   }
 },err=>{
   this.toastr.error(err.error.message)
@@ -254,7 +265,6 @@ this.dashboardService.saveProdotto(
 }
 
 updateProductImage(event:any){
-
   const files = event.target.files;
     if (files.length === 0)
         return;
@@ -269,5 +279,50 @@ reader.readAsDataURL(files[0]);
 reader.onload = (_event) => {
     this.productImage= reader.result;
 }
+}
+
+modify(product:any){
+  this.prodotto.controls['nome'].setValue(product.nome),
+ this.prodotto.controls['tipoProdotto'].setValue(product.tipoProdotto),
+ this.prodotto.controls['prezzo'].setValue(product.prezzo),
+  this.prodotto.controls['pezzi'].setValue(product.pezzi),
+ this.prodotto.controls['category_id'].setValue(product.category.id)
+ this.modif=true
+ this.productToModifyId=product.id
+ this.productImage=product.immagine
+}
+cancel(product:any){
+const dialogRef = this.dialog.open(ErrorComponent,{data:`Vuoi davvero eliminare il prodotto ${product.nome} ?`})
+
+dialogRef.afterClosed().subscribe((res:any)=>{
+  if(res &&res=='yes'){
+    this.dashboardService.deleteProdottoById(product.id).subscribe((data:any)=>{
+      if(data){
+        this.toastr.success("Prodotto eliminato correttamente, ci vorrà un po' per aggiornare la lista.")
+
+      }else{
+        this.toastr.error("C'è stato un problema nell'elaborazione della richiesta.")
+      }
+    })
+  }
+})
+}
+modifyProdotto(){
+  if (this.productToModifyId){
+this.dashboardService.updateProdottoById(this.productToModifyId,{
+  nome:this.prodotto.controls['nome'].value,
+    tipoProdotto:this.prodotto.controls['tipoProdotto'].value,
+    prezzo:this.prodotto.controls['prezzo'].value,
+    pezzi:this.prodotto.controls['pezzi'].value,
+    category_id:Number(this.prodotto.controls['category_id'].value),
+    societa_id:this.societa.id
+},this.selectedFile).subscribe((prodotto:any)=>{
+  if(prodotto){
+    this.toastr.success("prodotto modificato correttamente, ci vorrà un po' per aggiornare la lista")
+  }
+},err=>{
+  this.toastr.error(err.error.messsage||"c'è stato un problema nell'elaborazione della richiesta")
+})
+  }
 }
 }

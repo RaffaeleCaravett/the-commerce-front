@@ -192,7 +192,7 @@
     <h2>I tuoi prodotti
 </h2>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6 p-2">
     <h2>Inserisci i tuoi prodotti. 📋</h2>
     <form [formGroup]="prodotto">
 
@@ -222,12 +222,23 @@
   <button class="btn" *ngIf="productImage==''" (click)="img.click()">Upload image</button>
 <button class="btn" *ngIf="productImage!=''" (click)="productImage='';selectedFile=null">Remove image</button>
 </div>
-<label for="" class="p-1">Società</label>
- <input type="number" class="form-control" *ngIf="societa" formControlName="societa_id" [disabled]="true" placeholder="{{societa.nome}}">
- <button class="btn m-1" (click)="addProdotto()">Aggiungi prodotto</button>
+<label for="" class="p-1">Società (Il numero è l'id della tua società)</label>
+ <input type="number" class="form-control" *ngIf="societa" formControlName="societa_id"  placeholder="{{societa.nome||''}}">
+ <button class="btn m-1" (click)="addProdotto()" *ngIf="!modif">Aggiungi prodotto</button>
+ <button class="btn m-1 btn-success" (click)="modifyProdotto()" *ngIf="modif">Modifica prodotto</button>
   </form>
   </div>
-  <div class="col-md-6"></div>
+  <div class="col-md-6 p-2">
+<div class="row">
+  <div class="col-md-4 p-2 text-center" *ngFor="let p of prodotti">
+  <h2>{{p.nome}}</h2>
+  <p>{{p.tipoProdotto}} <span>Categoria : {{p.category.name}}</span></p>
+  <img src="{{p.immagine}}" class="w-100" alt="">
+  <p><span>Prezzo: {{p.prezzo}}€</span>, <span>pezzi: {{p.pezzi}}</span></p>
+  <p class="p-1"> <button class="btn btn-success m-1" (click)="modify(p)">Modifica</button><button class="btn btn-danger m-1" (click)="cancel(p)">Elimina</button></p>
+  </div>
+</div>
+  </div>
 </div>
 </div>
 <div class="col-md-12 p-2" >

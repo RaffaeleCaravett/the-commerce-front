@@ -11,8 +11,8 @@ import { DinamicCategoryComponent } from './dinamic-category.component';
   imports: [
     CommonModule,
 RouterModule.forChild([
-  { path: '', component: DinamicCategoryComponent }
-])
+  { path: '', component: DinamicCategoryComponent },
+]),
   ],
   providers: [],
   bootstrap: [],

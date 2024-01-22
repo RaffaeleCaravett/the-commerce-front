@@ -74,6 +74,27 @@ saveProdotto(prodotto:{},file:File){
   return this.http.post(environment.API_URL + this.prodotto, formData);
 }
 getProdottBySocietàId(societàId:number){
-  return this.http.get(environment.API_URL+this.prodotto+`/${societàId}`)
+  return this.http.get(environment.API_URL+this.prodotto+`/societa/${societàId}`)
+}
+
+deleteProdottoById(prodottoId:number){
+  return this.http.delete(environment.API_URL+this.prodotto+`/${prodottoId}`)
+}
+updateProdottoById(prodottoId:number,prodotto:{},file?:File){
+  const formData: FormData = new FormData();
+
+
+  const json = JSON.stringify(prodotto);
+  const blob = new Blob([json], {
+    type: 'application/json'
+  });
+  formData.append('productDTO', blob);
+  if(file){
+      formData.append('immagine_profilo', file, file.name);
+  }else{
+    formData.append('immagine_profilo', new Blob, '');
+
+  }
+  return this.http.put(environment.API_URL+this.prodotto+`/${prodottoId}`,formData)
 }
 }
