@@ -63,14 +63,15 @@ saveProdotto(prodotto:{},file:File){
 
   const formData: FormData = new FormData();
 
-  formData.append('productDTO', JSON.stringify(prodotto));
 
+  const json = JSON.stringify(prodotto);
+  const blob = new Blob([json], {
+    type: 'application/json'
+  });
+  formData.append('productDTO', blob);
   formData.append('immagine_profilo', file, file.name);
 
-  const headers = new HttpHeaders();
-  headers.append('Content-Type', 'multipart/form-data');
-
-  return this.http.post(environment.API_URL + this.prodotto, formData, { headers: headers });
+  return this.http.post(environment.API_URL + this.prodotto, formData);
 }
 getProdottBySocietàId(societàId:number){
   return this.http.get(environment.API_URL+this.prodotto+`/${societàId}`)
