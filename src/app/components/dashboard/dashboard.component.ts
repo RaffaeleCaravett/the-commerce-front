@@ -255,6 +255,7 @@ this.dashboardService.saveProdotto(
 ).subscribe((prodotto:any)=>{
   if(prodotto){
     this.toastr.success("Prodotto salvato, ci vorrà un po' per aggiornare la lista.")
+    this.ngOnInit()
   }
 },err=>{
   this.toastr.error(err.error.message)
@@ -299,6 +300,7 @@ dialogRef.afterClosed().subscribe((res:any)=>{
     this.dashboardService.deleteProdottoById(product.id).subscribe((data:any)=>{
       if(data){
         this.toastr.success("Prodotto eliminato correttamente, ci vorrà un po' per aggiornare la lista.")
+        this.ngOnInit()
 
       }else{
         this.toastr.error("C'è stato un problema nell'elaborazione della richiesta.")
@@ -319,6 +321,7 @@ this.dashboardService.updateProdottoById(this.productToModifyId,{
 },this.selectedFile).subscribe((prodotto:any)=>{
   if(prodotto){
     this.toastr.success("prodotto modificato correttamente, ci vorrà un po' per aggiornare la lista")
+    this.ngOnInit()
   }
 },err=>{
   this.toastr.error(err.error.messsage||"c'è stato un problema nell'elaborazione della richiesta")

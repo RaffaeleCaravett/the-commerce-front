@@ -224,7 +224,7 @@
 </div>
 <label for="" class="p-1">Società (Il numero è l'id della tua società)</label>
  <input type="number" class="form-control" *ngIf="societa" formControlName="societa_id"  placeholder="{{societa.nome||''}}">
- <button class="btn m-1" (click)="addProdotto()" *ngIf="!modif">Aggiungi prodotto</button>
+ <button class="btn m-1" (click)="addProdotto()">Aggiungi prodotto</button>
  <button class="btn m-1 btn-success" (click)="modifyProdotto()" *ngIf="modif">Modifica prodotto</button>
   </form>
   </div>
