@@ -213,8 +213,17 @@
       <option value=""></option>
       <option value="{{c.id}}" *ngFor="let c of categories">{{c.name}}</option>
     </select>
-    <label for="" class="p-1">Società</label>
- <input type="number" class="form-control" formControlName="societa_id" [disabled]="true" placeholder="{{societa.nome}}">
+    <label for="" class="p-1">Immagine prodotto</label>
+<input type="file" accept=".jpg" class="d-none" #img (change)="updateProductImage($event)">
+<div class="p-2">
+  <img src="{{productImage}}" *ngIf="productImage!=''" alt="" class="w-50 m-auto">
+</div>
+<div>
+  <button class="btn" *ngIf="productImage==''" (click)="img.click()">Upload image</button>
+<button class="btn" *ngIf="productImage!=''" (click)="productImage='';selectedFile=null">Remove image</button>
+</div>
+<label for="" class="p-1">Società</label>
+ <input type="number" class="form-control" *ngIf="societa" formControlName="societa_id" [disabled]="true" placeholder="{{societa.nome}}">
  <button class="btn m-1" (click)="addProdotto()">Aggiungi prodotto</button>
   </form>
   </div>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environment';
 
@@ -59,7 +59,20 @@ constructor(private http:HttpClient){}
   getCategory(){
     return this.http.get(environment.API_URL+this.category)
   }
-saveProdotto(prodotto:{}){
-  return this.http.post(environment.API_URL+this.prodotto,prodotto)
+saveProdotto(prodotto:{},file:File){
+
+  const formData: FormData = new FormData();
+
+  formData.append('productDTO', JSON.stringify(prodotto));
+
+  formData.append('immagine_profilo', file, file.name);
+
+  const headers = new HttpHeaders();
+  headers.append('Content-Type', 'multipart/form-data');
+
+  return this.http.post(environment.API_URL + this.prodotto, formData, { headers: headers });
+}
+getProdottBySocietàId(societàId:number){
+  return this.http.get(environment.API_URL+this.prodotto+`/${societàId}`)
 }
 }

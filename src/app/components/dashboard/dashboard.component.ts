@@ -23,6 +23,8 @@ societa:any
 societaForm!:FormGroup
 prodotto!:FormGroup
 categories:any
+productImage:any=''
+selectedFile:any=null
 constructor(private dashboardService:DashboardService, private toastr:ToastrService){}
 
 ngOnInit(): void {
@@ -229,7 +231,7 @@ if(this.societaForm.valid){
 }
 }
 addProdotto(){
-  if(this.prodotto.valid){
+  if(this.prodotto.valid&&this.selectedFile!=null){
 this.dashboardService.saveProdotto(
   {
     nome:this.prodotto.controls['nome'].value,
@@ -238,7 +240,7 @@ this.dashboardService.saveProdotto(
     pezzi:this.prodotto.controls['pezzi'].value,
     category_id:Number(this.prodotto.controls['category_id'].value),
     societa_id:this.societa.id
-  }
+  },this.selectedFile
 ).subscribe((prodotto:any)=>{
   if(prodotto){
     this.toastr.success('Prodotto salvato')
@@ -247,7 +249,25 @@ this.dashboardService.saveProdotto(
   this.toastr.error(err.error.message)
 })
   }else{
-    this.toastr.error('Il form non è valido')
+    this.toastr.error('Il form non è valido, o manca l\'immagine del prodotto.')
   }
+}
+
+updateProductImage(event:any){
+
+  const files = event.target.files;
+    if (files.length === 0)
+        return;
+this.selectedFile=event.target.files[0]
+if (this.selectedFile && this.selectedFile.size > 1024 * 1024) {
+   this.toastr.error('File size exceeds 1MB limit.');
+    this.selectedFile = null;
+    return;
+  }
+const reader = new FileReader();
+reader.readAsDataURL(files[0]);
+reader.onload = (_event) => {
+    this.productImage= reader.result;
+}
 }
 }
