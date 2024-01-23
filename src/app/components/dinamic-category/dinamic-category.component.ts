@@ -81,4 +81,39 @@ this.dinamicService.updateCarrelloById(this.carrello.id,{
   }
 
   addToFavourites(prodotto:any){console.log('ihih')}
+
+  deleteFromCarrello(carrelloId:number,itemId:number){
+    this.dinamicService.removeItemFromCarrelloById(carrelloId,itemId).subscribe((carrello:any)=>{
+      if(carrello){
+        this.carrello=carrello
+      }
+      this.toastr.success('Elemento rimosso correttamente.')
+    },err=>{
+      this.toastr.error(err.error.message||'Problema nell\'elaborazione della richiesta.')
+    })
+  }
+
+  pagaCarrello(carrelloId:number){
+    this.svuotaCarrello(carrelloId,'acquisto')
+  }
+
+  svuotaCarrello(carrelloId:number,param?:string){
+    if(this.carrello&&this.carrello.products&&this.carrello.products.length>0){
+    this.dinamicService.svuotaCarrello(carrelloId).subscribe((carrello:any)=>{
+      if(carrello){
+        this.carrello=carrello
+      }
+      if(!param){
+              this.toastr.success('Carrello svuotato correttamente.')
+      }
+      else{
+        this.toastr.success('Acquisto andato a buon fine.')
+      }
+    },err=>{
+      this.toastr.error(err.error.message||'Problema nell\'elaborazione della richiesta.')
+    })
+  }else{
+    this.toastr.error('Il carrello è vuoto.')
+  }
+  }
 }

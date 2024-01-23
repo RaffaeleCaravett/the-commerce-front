@@ -35,4 +35,7 @@ getCarrelloByUserId(userId:number){
 svuotaCarrello(carrelloId:number){
   return this.http.get(environment.API_URL+this.carrello+`/svuota/${carrelloId}`)
 }
+removeItemFromCarrelloById(carrelloId:number,itemId:number){
+  return this.http.get(environment.API_URL+this.carrello+`/prodotto/${carrelloId}/${itemId}`)
+}
 }
