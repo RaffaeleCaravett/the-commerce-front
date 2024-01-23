@@ -80,7 +80,28 @@ this.dinamicService.updateCarrelloById(this.carrello.id,{
 }
   }
 
-  addToFavourites(prodotto:any){console.log('ihih')}
+  addToFavourites(prodotto:any){
+    if(this.user&&this.isUserRegistered){
+    this.dinamicService.saveLike(
+      {
+        product_id:prodotto.id,
+        user_id:this.user.id
+      }
+    ).subscribe((like:any)=>{
+      if(like){
+        this.toastr.success(like)
+      }
+    },err=>{
+if(err.error.text=='Prodotto aggiunto ai preferiti'){
+  this.toastr.success(err.error.text)
+}else{
+      this.toastr.error(err.error.text)
+}
+    })
+  }else{
+    this.toastr.error('Il token è scaduto, effettua di nuovo l\'accesso')
+  }
+  }
 
   deleteFromCarrello(carrelloId:number,itemId:number){
     this.dinamicService.removeItemFromCarrelloById(carrelloId,itemId).subscribe((carrello:any)=>{

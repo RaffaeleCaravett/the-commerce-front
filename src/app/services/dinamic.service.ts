@@ -1,4 +1,5 @@
 import { HttpClient } from "@angular/common/http";
+import { BoundElementProperty } from "@angular/compiler";
 import { Injectable } from "@angular/core";
 import { use } from "echarts";
 import { environment } from "src/environment";
@@ -12,7 +13,9 @@ export class DinamicService {
 private category:string='/category';
 private products:string='/products';
 private carrello:string='/carrello'
-  constructor(private http:HttpClient){}
+private like:string='/like'
+
+constructor(private http:HttpClient){}
 
 getProductsByCategoryId(categoryId:number){
 return this.http.get(environment.API_URL+this.products+this.category+`/${categoryId}`)
@@ -37,5 +40,8 @@ svuotaCarrello(carrelloId:number){
 }
 removeItemFromCarrelloById(carrelloId:number,itemId:number){
   return this.http.get(environment.API_URL+this.carrello+`/prodotto/${carrelloId}/${itemId}`)
+}
+saveLike(like:{}){
+  return this.http.post(environment.API_URL+this.like,like)
 }
 }
