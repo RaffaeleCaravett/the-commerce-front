@@ -68,6 +68,18 @@ capitaleSociale:new FormControl('',Validators.required)
 })
 if(localStorage.getItem('user')){
   this.user=JSON.parse(localStorage.getItem('user')!)
+this.dashboardService.getLikesByUserId(this.user.id).subscribe((likes:any)=>{
+  if(likes){
+    this.likes=likes
+  }
+})
+this.dashboardService.getAcquistoByUserId(this.user.id).subscribe((acquisto:any)=>{
+  if(acquisto){
+    console.log(acquisto)
+    this.acquisti=acquisto
+  }
+})
+
   this.dashboardService.getAnagraficaByUserId(this.user.id).subscribe((data:any)=>{
   this.schedaAnagrafica=data
 

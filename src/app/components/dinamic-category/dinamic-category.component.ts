@@ -114,8 +114,32 @@ if(err.error.text=='Prodotto aggiunto ai preferiti'){
     })
   }
 
-  pagaCarrello(carrelloId:number){
-    this.svuotaCarrello(carrelloId,'acquisto')
+  pagaCarrello(carrello:number){
+    if(this.user&&this.isUserRegistered){
+      let prodotti=[]
+      for(let c of this.carrello.products){
+        prodotti.push(c.id)
+      }
+      if(prodotti.length>0){
+       this.dinamicService.saveAcquisto({
+  user_id:this.user.id,
+  product_id:prodotti
+
+}).subscribe((acquisto:any)=>{
+  if(acquisto){
+    this.toastr.success('Acquisto effettuato correttamente')
+    this.svuotaCarrello(this.carrello.id)
+  }
+},err=>{
+  this.toastr.error(err.error.message||"Qualcosa è andato storto nell\'elaborazione della risposta")
+})
+      }else{
+        this.toastr.error("Il carrello è vuoto")
+      }
+
+    }else{
+      this.toastr.error("Il token non è valido, effettua di nuovo l'accesso")
+    }
   }
 
   svuotaCarrello(carrelloId:number,param?:string){
@@ -124,12 +148,7 @@ if(err.error.text=='Prodotto aggiunto ai preferiti'){
       if(carrello){
         this.carrello=carrello
       }
-      if(!param){
               this.toastr.success('Carrello svuotato correttamente.')
-      }
-      else{
-        this.toastr.success('Acquisto andato a buon fine.')
-      }
     },err=>{
       this.toastr.error(err.error.message||'Problema nell\'elaborazione della richiesta.')
     })

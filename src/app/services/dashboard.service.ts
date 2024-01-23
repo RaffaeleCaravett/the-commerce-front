@@ -97,4 +97,10 @@ updateProdottoById(prodottoId:number,prodotto:{},file?:File){
   }
   return this.http.put(environment.API_URL+this.prodotto+`/${prodottoId}`,formData)
 }
+getLikesByUserId(userId:number){
+  return this.http.get(environment.API_URL+this.like+`/user/${userId}`)
+}
+getAcquistoByUserId(userId:number){
+  return this.http.get(environment.API_URL+this.acquisto+`/user/${userId}`)
+}
 }

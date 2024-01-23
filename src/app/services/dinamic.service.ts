@@ -14,6 +14,7 @@ private category:string='/category';
 private products:string='/products';
 private carrello:string='/carrello'
 private like:string='/like'
+private acquisto:string='/acquisto'
 
 constructor(private http:HttpClient){}
 
@@ -43,5 +44,8 @@ removeItemFromCarrelloById(carrelloId:number,itemId:number){
 }
 saveLike(like:{}){
   return this.http.post(environment.API_URL+this.like,like)
+}
+saveAcquisto(acquisto:any){
+  return this.http.post(environment.API_URL+this.acquisto,acquisto)
 }
 }
