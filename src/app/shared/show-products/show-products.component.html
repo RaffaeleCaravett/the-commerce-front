@@ -1,0 +1,26 @@
+<div class="p-2 text-center" *ngIf="data[1]=='prodotto'; else noDataTemplate">
+  <h1 mat-dialog-title>{{data[0].nome}}</h1>
+  <div mat-dialog-content>
+      <p>Venduto da : {{data[0]['societàName']}} , Categoria : {{data[0].category.name}}</p>
+      <img src="{{data[0].immagine}}" style="max-width: 200px;" alt="" class="rounded shadow border">
+      <p><span>Prezzo : {{data[0].prezzo}} </span> <span> Pezzi : {{data.pezzi}}</span></p>
+<p>Tipo prodotto : {{data[0].tipoProdotto}}</p>
+  </div>
+  <div class="p-2">
+    <button class="btn m-1" (click)="closeDialog('add')"> Aggiungi al carrello</button>
+    <button class="btn m-1 btn-danger" (click)="closeDialog()">Chiudi</button>
+  </div>
+</div>
+<ng-template #noDataTemplate class="overflow-auto">
+  <div class="p-2 text-center" *ngFor="let item of data[0]">
+    <h1 mat-dialog-title>{{item.nome}}</h1>
+    <div mat-dialog-content>
+        <p>Venduto da : {{item['societàName']}} , Categoria : {{item.category.name}}</p>
+        <img src="{{item.immagine}}" style="max-width: 200px;" alt="" class="rounded shadow border">
+        <p><span>Prezzo : {{item.prezzo}} </span> <span> Pezzi : {{data.pezzi}}</span></p>
+  <p>Tipo prodotto : {{item.tipoProdotto}}</p>
+    </div>
+    <div class="p-2">
+    </div>
+  </div><button class="btn m-1 btn-danger" (click)="closeDialog()">Chiudi</button>
+</ng-template>
