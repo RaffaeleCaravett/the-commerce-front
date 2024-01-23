@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthGuard } from 'src/app/core/guard/auth.guard';
 import { AppService } from 'src/app/services/app.service';
+import { DinamicService } from 'src/app/services/dinamic.service';
 
 @Component({
   selector: 'app-dinamic-category',
@@ -10,18 +13,72 @@ import { AppService } from 'src/app/services/app.service';
 export class DinamicCategoryComponent implements OnInit, OnDestroy{
   id: number=0;
   private sub: any;
+  products:any=null
 category:any
-  constructor(private route: ActivatedRoute,private appService:AppService) {}
+user:any
+isUserRegistered:boolean=false
+carrello:any
+  constructor(private route: ActivatedRoute,private dinamicService:DinamicService,private toastr:ToastrService,private authGuard:AuthGuard) {}
 
   ngOnInit() {
+    this.isUserRegistered=this.authGuard.isAuthenticated
+    if(localStorage.getItem('user')){
+      this.user=JSON.parse(localStorage.getItem('user')!)
+
+      this.dinamicService.getCarrelloByUserId(this.user.id).subscribe((carrello:any)=>{
+        console.log(carrello)
+        if(carrello){
+this.carrello=carrello
+        }
+      })
+
+    }
     this.sub = this.route.params.subscribe(params => {
        this.id = +params['id'];
-this.appService.getCategoryById(this.id).subscribe((data:any)=>{
-this.category=data})
+this.dinamicService.getCategoryById(this.id).subscribe((data:any)=>{
+  if(data){
+    this.category=data
+  }
+this.dinamicService.getProductsByCategoryId(this.category.id).subscribe((products:any)=>{
+  if(products){
+    this.products=products.content;
+  }
+})
+
+})
     });
+
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
+  compra(prodotto:any){
+if(!this.user){
+this.toastr.error("Devi prima effettuare l'accesso")
+}else if(!this.carrello){
+  this.dinamicService.saveCarrello(
+    {
+      products_id:[prodotto.id],
+      user_id:this.user.id
+    }
+  ).subscribe((carrello:any)=>{
+    this.carrello=carrello
+  },err=>{
+    this.toastr.error(err.error.message||'Qualcosa è andato storto nell\'elaborazione della richiesta')
+  })
+}else{
+this.dinamicService.updateCarrelloById(this.carrello.id,{
+  products_id:[prodotto.id],
+  user_id:this.user.id
+}).subscribe((carrello:any)=>{
+  this.carrello=carrello
+},err=>{
+  this.toastr.error(err.error.message||'Qualcosa è andato storto nell\'elaborazione della richiesta')
+})
+}
+  }
+
+  addToFavourites(prodotto:any){console.log('ihih')}
 }

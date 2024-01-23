@@ -1,4 +1,4 @@
-<div class="container text-center" style="min-height: 85vh;">
+<div class="container text-center" style="min-height: 85vh;" *ngIf="category">
   <div class="row">
     <div class="col-md-12 py-3">
       <h1>{{category.name}}</h1>
@@ -6,15 +6,52 @@
     </div>
     <div class="col-md-12 py-3">
       <h2>Prodotti</h2>
+      <p *ngIf="!isUserRegistered" class="p-2">Per poter comprare o aggiungere qualsiasi prodotto alla tua lista preferiti devi effettuare prima l'accesso.</p>
       <div class="row">
-        <div class="col-md-3 p-2" *ngFor="let p of category.product">
+        <div class="col-md-12 p-3">
+          <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-3">
+                <div class="text-center p-1 border rounded shadow overflow-auto">
+<h2>{{user.nomeCompleto}} - {{user.eta}} anni</h2>
+          <p class="p-1">{{user.nazione.nome}} - {{user.citta.nome}}</p>
+          <p class="p-1">Email : {{user.email}}</p>
+          </div>
+        </div>
+            <div class="col-md-3">
+              <div class="text-center p-1 border rounded shadow overflow-auto" *ngIf="isUserRegistered">
+<h2>Carrello</h2>
+<p *ngIf="!carrello||carrello.products.length==0">Non ci sono prodotti nel carrello</p>
+<div *ngIf="carrello" class="row">
+<div class="col-md-12 p-1" *ngFor="let p of carrello.products">
+<div class="row">
+  <div class="col-md-2">
+    <img src="{{p.immagine}}" class="w-100" alt="">
+  </div>
+  <div class="col-md-10">
+    {{p.nome}}
+  </div>
+  <div class="col-md-12"><span class="p-1"> Venduto da : {{p['societàName']}} </span> <span class="p-1"> Prezzo : {{p.prezzo}} </span> <span> Tipo prodotto : {{p.tipoProdotto}} </span></div>
+</div>
+</div>
+</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 p-2 border rounded shadow" *ngFor="let p of products">
       <h2>{{p.nome}}</h2>
       <p>Tipo prodotto : {{p.tipoProdotto}}</p>
-      <img src="{{p.image}}" class="w-100" alt="">
+      <img src="{{p.immagine}}" class="w-100" alt="">
   <p>Prezzo : {{p.prezzo}} | Disponibilità : {{p.pezzi}} pz.</p>
-  <p>Venduto da : {{p.societa.nome}}</p>
+  <p>Venduto da : {{p['societàName']}}</p>
+  <p class="p-2">
+    <button class="btn m-1 btn-success" [disabled]="!isUserRegistered" (click)="compra(p)">Aggiungi al carrello</button>
+    <button class="btn btn-warning m-1" [disabled]="!isUserRegistered" (click)="addToFavourites(p)">Aggiungi ai preferiti</button></p>
         </div>
-        <div class="col-md-12" *ngIf="category.product.length==0">
+        <div class="col-md-12" *ngIf="!products||products.length==0">
         <h2>Non ci sono ancora prodotti per questa categoria</h2></div>
       </div>
     </div>

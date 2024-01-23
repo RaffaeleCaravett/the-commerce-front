@@ -27,9 +27,7 @@ getVisit(){
 getCategory(){
   return this.http.get(environment.API_URL+this.category)
 }
-getCategoryById(id:number){
-  return this.http.get(environment.API_URL+this.category+`/${id}`)
-}
+
 saveRicerca(ricerca:{}){
   return this.http.post(environment.API_URL+this.ricerca,ricerca)
 }
