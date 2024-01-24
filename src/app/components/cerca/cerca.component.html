@@ -1,1 +1,33 @@
-<p>cerca works!</p>
+<div class="container text-center" style="min-height: 95vh;">
+  <div class="row">
+    <div class="col-md-12 p-2">
+<h1>Prodotti</h1>
+    </div>
+   <div class="col-md-3 p-2" *ngFor="let p of prodotti">
+<div class="border rounded shadow p-1">
+  <h2>{{p.nome}} </h2>
+  <p>Tipo prodotto : {{p.tipoProdotto}} , pezzi {{p.pezzi}}</p>
+  <img src="{{p.immagine}}" alt="" class="w-100 rounded" style="height: 171px;">
+  <p><span> Prezzo : {{p.prezzo}} , Venduto da : {{p.societaName}}</span></p>
+</div>
+<button class="btn m-1" (click)="compra(p)">Aggiungi al carrello</button>
+<button class="btn m-1" (click)="addToFavourites(p)">Salva nei preferiti</button>
+   </div>
+   <div class="col-md-12 py-3" *ngIf="prodotti.length==0">
+  <h1>    Non ci sono prodotti corrispondenti alla ricerca
+</h1>
+</div>
+   <div class="col-md-12 text-center py-3">
+<h1>Esplora tra le nostre categorie</h1>
+<div class="row">
+  <div class="col-md-3 p-2" *ngFor="let c of categories">
+  <div class="p-1">
+<h2>{{c.name}}</h2>
+<img src="{{c.image}}" class="w-100" alt="">
+<button class="btn" [routerLink]="['/dinamic',c.id]">Vai</button>
+  </div>
+  </div>
+</div>
+   </div>
+  </div>
+</div>

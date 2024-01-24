@@ -1,7 +1,7 @@
 <nav class="w-100 p-3 bg-success shadow">
 <div class="row">
   <div class="col-md-2">
-    <button class="btn fs-5" [routerLink]="'/home'">The commerce</button>
+    <button class="btn fs-5" [routerLink]="'/home'" (click)="search.controls['search'].setValue('')">The commerce</button>
   </div>
   <div class="col-md-2">
     <form [formGroup]="search" class="d-flex">
@@ -10,19 +10,19 @@
   </form>
   </div>
   <div class="col-md-2">
-    <button mat-button [matMenuTriggerFor]="menu" class="fs-5">Nel sito<span class="fs-5">⬇️</span></button>
+    <button mat-button [matMenuTriggerFor]="menu" class="fs-5" (click)="search.controls['search'].setValue('')">Nel sito<span class="fs-5">⬇️</span></button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item [routerLink]="'/home'">The commerce</button>
       <button mat-menu-item [routerLink]="['/dinamic',c.id]" *ngFor="let c of categories">{{c.name}}</button>
     </mat-menu>  </div>
   <div class="col-md-2">
-    <button class="btn fs-5" [routerLink]="'/dashboard'">Area personale</button>
+    <button class="btn fs-5" [routerLink]="'/dashboard'" (click)="search.controls['search'].setValue('')">Area personale</button>
   </div>
   <div class="col-md-2">
-    <button class="btn fs-5" [routerLink]="'/stats'">Bestseller</button>
+    <button class="btn fs-5" [routerLink]="'/stats'" (click)="search.controls['search'].setValue('')">Bestseller</button>
   </div>
   <div class="col-md-2">
-    <button class="btn fs-5" [routerLink]="'/forms'" *ngIf="!isAuthenticated">Login/Signup</button>
+    <button class="btn fs-5" [routerLink]="'/forms'" *ngIf="!isAuthenticated" (click)="search.controls['search'].setValue('')">Login/Signup</button>
     <button class="btn fs-5" (click)="logout()" *ngIf="isAuthenticated">Logout</button>
   </div>
 </div>

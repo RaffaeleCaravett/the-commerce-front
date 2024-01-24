@@ -46,10 +46,10 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-3 p-2 border rounded shadow" *ngFor="let p of products" (click)="showProdotto(p)">
+        <div class="col-md-3 p-2 border rounded shadow" *ngFor="let p of products">
       <h2>{{p.nome}}</h2>
       <p>Tipo prodotto : {{p.tipoProdotto}}</p>
-      <img src="{{p.immagine}}" class="w-100" alt="">
+      <img src="{{p.immagine}}" class="w-100" alt=""  (click)="showProdotto(p)">
   <p>Prezzo : {{p.prezzo}} | Disponibilità : {{p.pezzi}} pz.</p>
   <p>Venduto da : {{p['societàName']}}</p>
   <p class="p-2">
