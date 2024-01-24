@@ -9,7 +9,7 @@ import { environment } from 'src/environment';
 export class ShowProductService {
 
   private predefinedComments:string='/predefinedComments'
-  private comments:string='/comments'
+  private comments:string='/commentUser'
   private ratings:string='/api/ratings'
 
 

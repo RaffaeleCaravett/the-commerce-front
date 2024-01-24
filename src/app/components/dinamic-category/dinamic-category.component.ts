@@ -24,7 +24,7 @@ carrello:any
 
   ngOnInit() {
     this.isUserRegistered=this.authGuard.isAuthenticated
-    if(localStorage.getItem('user')){
+    if(localStorage.getItem('user')&&this.isUserRegistered){
       this.user=JSON.parse(localStorage.getItem('user')!)
 
       this.dinamicService.getCarrelloByUserId(this.user.id).subscribe((carrello:any)=>{
