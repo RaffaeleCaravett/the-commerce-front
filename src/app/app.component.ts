@@ -47,6 +47,9 @@ if(localStorage.getItem('authToken')){
 
   })
 
+}else{
+  this.router.navigate(['/home'])
+
 }
   }
 }
