@@ -5,6 +5,13 @@
       <img src="{{data[0].immagine}}" style="max-width: 200px;" alt="" class="rounded shadow border">
       <p><span>Prezzo : {{data[0].prezzo}} </span> <span> Pezzi : {{data.pezzi}}</span></p>
 <p>Tipo prodotto : {{data[0].tipoProdotto}}</p>
+<div class="d-flex justify-content-center">
+  <p *ngFor="let star of stars"  [class.active]="star <= rating">
+ <i class="fas fa-star" [class.active]="star <= rating" [class.hover]="star <= hoverRating" (click)="rate(star)"></i>
+</p>
+
+</div>
+<p>Media recensioni prodotto : {{media}}</p>
   </div>
   <div class="p-2">
     <button class="btn m-1" (click)="closeDialog('add')"> Aggiungi al carrello</button>
