@@ -12,7 +12,7 @@
           <div class="row">
             <div class="col-md-6"></div>
             <div class="col-md-3">
-                <div class="text-center p-1 border rounded shadow overflow-auto">
+                <div class="text-center p-1 border rounded shadow overflow-auto" *ngIf="user">
 <h2>{{user.nomeCompleto}} - {{user.eta}} anni</h2>
           <p class="p-1">{{user.nazione.nome}} - {{user.citta.nome}}</p>
           <p class="p-1">Email : {{user.email}}</p>

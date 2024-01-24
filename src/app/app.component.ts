@@ -40,7 +40,9 @@ if(localStorage.getItem('authToken')){
       localStorage.setItem('authToken',this.authService.token)
       localStorage.setItem('refreshToken',this.authService.token)
       this.router.navigate(['/home'])
-    }      })
+    }      },err=>{
+      this.router.navigate(['/home'])
+    })
     }
 
   })
