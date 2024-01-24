@@ -32,7 +32,7 @@
   <div class="p-2 border rounded shadow fs-4">
     <div class="row">
       <div class="col-md-4 p-3">
-        <div class="m-1 bg-light py-2 rounded shadow">
+        <div class="m-1 bg-light py-2 rounded shadow" (click)="showProduct('acquisti')">
     <p class="fs-3 fw-bold ">Acquisti effettuati : </p>
     <p class="fs-5" *ngIf="acquisti">{{acquisti.length}}</p>
     </div>
@@ -50,7 +50,7 @@
     </div>
       </div>
       <div class="col-md-12 p-3">
-        <div class="m-1 bg-light py-2 rounded shadow">
+        <div class="m-1 bg-light py-2 rounded shadow" (click)="showProduct('preferiti')">
     <p class="fs-3 fw-bold ">I tuoi prodotti preferiti : </p>
     <p class="fs-5" *ngIf="likes">{{likes.length}}</p>
     </div>

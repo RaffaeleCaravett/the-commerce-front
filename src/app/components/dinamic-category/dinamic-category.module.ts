@@ -3,6 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DinamicCategoryComponent } from './dinamic-category.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -13,8 +14,11 @@ import { DinamicCategoryComponent } from './dinamic-category.component';
 RouterModule.forChild([
   { path: '', component: DinamicCategoryComponent },
 ]),
+MatDialogModule
   ],
-  providers: [],
+  providers: [
+
+  ],
   bootstrap: [],
   schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ]
 

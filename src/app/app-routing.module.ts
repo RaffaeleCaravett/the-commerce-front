@@ -18,7 +18,7 @@ import('../app/components/forms/forms.module')
 path:'forms',
 component:FormsComponent},
 {
-path:'cerca',
+path:'cerca/:param',
 component:CercaComponent
 },
 {

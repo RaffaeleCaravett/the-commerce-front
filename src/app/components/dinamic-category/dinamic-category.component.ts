@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthGuard } from 'src/app/core/guard/auth.guard';
 import { AppService } from 'src/app/services/app.service';
 import { DinamicService } from 'src/app/services/dinamic.service';
+import { ShowProductsComponent } from 'src/app/shared/show-products/show-products.component';
 
 @Component({
   selector: 'app-dinamic-category',
@@ -18,7 +20,7 @@ category:any
 user:any
 isUserRegistered:boolean=false
 carrello:any
-  constructor(private route: ActivatedRoute,private dinamicService:DinamicService,private toastr:ToastrService,private authGuard:AuthGuard) {}
+  constructor(private route: ActivatedRoute,private dinamicService:DinamicService,private toastr:ToastrService,private authGuard:AuthGuard,private matDialog :MatDialog) {}
 
   ngOnInit() {
     this.isUserRegistered=this.authGuard.isAuthenticated
@@ -155,5 +157,15 @@ if(err.error.text=='Prodotto aggiunto ai preferiti'){
   }else{
     this.toastr.error('Il carrello è vuoto.')
   }
+  }
+
+  showProdotto(prodotto:any){
+    const dialogRef =this.matDialog.open(ShowProductsComponent,{data:[prodotto,'prodotto']})
+
+    dialogRef.afterClosed().subscribe((data:any)=>{
+      if(data=='add'){
+        this.compra(prodotto)
+      }
+    })
   }
 }

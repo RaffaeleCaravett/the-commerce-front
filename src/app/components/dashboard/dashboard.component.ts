@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { ErrorComponent } from 'src/app/shared/error/error.component';
+import { ShowProductsComponent } from 'src/app/shared/show-products/show-products.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -75,7 +76,6 @@ this.dashboardService.getLikesByUserId(this.user.id).subscribe((likes:any)=>{
 })
 this.dashboardService.getAcquistoByUserId(this.user.id).subscribe((acquisto:any)=>{
   if(acquisto){
-    console.log(acquisto)
     this.acquisti=acquisto
   }
 })
@@ -83,20 +83,20 @@ this.dashboardService.getAcquistoByUserId(this.user.id).subscribe((acquisto:any)
   this.dashboardService.getAnagraficaByUserId(this.user.id).subscribe((data:any)=>{
   this.schedaAnagrafica=data
 
-    this.anagrafica.controls['nome'].setValue(this.schedaAnagrafica.nome),
-    this.anagrafica.controls['cognome'].setValue(this.schedaAnagrafica.cognome),
-    this.anagrafica.controls['email'].setValue(this.schedaAnagrafica.email),
-    this.anagrafica.controls['tipoUtente'].setValue(this.schedaAnagrafica.role),
-    this.anagrafica.controls['codiceFiscale'].setValue(this.schedaAnagrafica.codiceFiscale),
-    this.anagrafica.controls['partitaIva'].setValue(this.schedaAnagrafica.partitaIva),
-    this.anagrafica.controls['via'].setValue(this.schedaAnagrafica.via),
-    this.anagrafica.controls['indirizzo'].setValue(this.schedaAnagrafica.indirizzo),
-    this.anagrafica.controls['numeroCivico'].setValue(this.schedaAnagrafica.numeroCivico),
-    this.anagrafica.controls['cap'].setValue(this.schedaAnagrafica.cap),
-    this.anagrafica.controls['capitaleSociale'].setValue(this.schedaAnagrafica.capitaleSociale),
+    this.anagrafica.controls['nome'].setValue(this.schedaAnagrafica?.nome),
+    this.anagrafica.controls['cognome'].setValue(this.schedaAnagrafica?.cognome),
+    this.anagrafica.controls['email'].setValue(this.schedaAnagrafica?.email),
+    this.anagrafica.controls['tipoUtente'].setValue(this.schedaAnagrafica?.role),
+    this.anagrafica.controls['codiceFiscale'].setValue(this.schedaAnagrafica?.codiceFiscale),
+    this.anagrafica.controls['partitaIva'].setValue(this.schedaAnagrafica?.partitaIva),
+    this.anagrafica.controls['via'].setValue(this.schedaAnagrafica?.via),
+    this.anagrafica.controls['indirizzo'].setValue(this.schedaAnagrafica?.indirizzo),
+    this.anagrafica.controls['numeroCivico'].setValue(this.schedaAnagrafica?.numeroCivico),
+    this.anagrafica.controls['cap'].setValue(this.schedaAnagrafica?.cap),
+    this.anagrafica.controls['capitaleSociale'].setValue(this.schedaAnagrafica?.capitaleSociale),
 this.anagrafica.updateValueAndValidity()
-if(this.schedaAnagrafica.role=='VENDITORE'){
-  this.dashboardService.getSocietaByAnagraficaId(this.schedaAnagrafica.id).subscribe((scheda:any)=>{
+if(this.schedaAnagrafica?.role=='VENDITORE'){
+  this.dashboardService.getSocietaByAnagraficaId(this.schedaAnagrafica?.id).subscribe((scheda:any)=>{
     if(scheda){
       this.societa=scheda
       this.societaForm=new FormGroup({
@@ -339,5 +339,29 @@ this.dashboardService.updateProdottoById(this.productToModifyId,{
   this.toastr.error(err.error.messsage||"c'è stato un problema nell'elaborazione della richiesta")
 })
   }
+}
+showProduct(param:string){
+
+if(param=='acquisti'){
+let acquisti = []
+for(let a of this.acquisti){
+  for(let p of a.productList){
+    console.log(p)
+ acquisti.push(p)
+  }
+}
+const dialogRef=this.dialog.open(ShowProductsComponent,{data:[acquisti,'']})
+dialogRef.afterClosed().subscribe((data:any)=>{})
+}else{
+  let favoriti = []
+  for(let a of this.likes){
+    favoriti.push(a.product)
+  }
+  const dialogRef=this.dialog.open(ShowProductsComponent,{data:[favoriti,'']})
+  dialogRef.afterClosed().subscribe((data:any)=>{})
+}
+
+
+
 }
 }

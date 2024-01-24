@@ -1,6 +1,7 @@
 import { AfterContentChecked, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {  Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthGuard } from 'src/app/core/guard/auth.guard';
 import { AppService } from 'src/app/services/app.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
@@ -17,7 +18,7 @@ categories:any
 user:any
 isAuthenticated!:boolean
 
-constructor(private router:Router,private appService:AppService,private authGuard:AuthGuard){}
+constructor(private router:Router,private appService:AppService,private authGuard:AuthGuard,private toastr:ToastrService){}
   ngAfterContentChecked(): void {
     this.isAuthenticated=this.authGuard.isAuthenticated
      }
@@ -43,10 +44,14 @@ cerca(){
        this.appService.saveRicerca({
       user_id:this.user.id,
       ricerca:this.search.controls['search'].value
-    }).subscribe((data:any)=>{})
+    }).subscribe((data:any)=>{
+    this.router.navigate(['/cerca',this.search.controls['search'].value])
+    },err=>{
+      this.toastr.error(err.error.message)
+    })
     }
-
-this.router.navigate(['cerca'])
+  }else{
+    this.toastr.error('Inserisci un valore')
   }
 }
 logout(){

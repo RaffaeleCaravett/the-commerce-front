@@ -20,6 +20,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './core/guard/auth.guard';
 import { TokenInterceptor } from './core/interceptor/token.interceptor';
+import { ShowProductsComponent } from './shared/show-products/show-products.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { TokenInterceptor } from './core/interceptor/token.interceptor';
     ErrorComponent,
     NotFoundComponent,
     CommerceStatsComponent,
+    ShowProductsComponent,
   ],
   imports: [
     BrowserModule,
